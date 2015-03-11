@@ -28,6 +28,8 @@ AppSupportURL=http://forum.videohelp.com/threads/366724-Aviutl-Tips-Tricks-and-S
 ;Å´Internet Download Plugin
 #include <idp.iss>
 
+
+
 [Types]
 ; English
 Name: "full"; Description: "Full install for Win7 64bit(English)"; MinVersion: 6.1; Check: IsWin64
@@ -60,31 +62,36 @@ Name: "plugin"; Description: Optional Plugins
 ; Import plugins
 Name: "plugin\import"; Description: File Import Support
 Name: "plugin\import\dsinput"; Description: DirectShow Input; Types: full full32 xp compact fulljp full32jp xpjp compactjp
-Name: "plugin\import\lsw"; Description: L-Smash Works; Types: full full32 xp fulljp full32jp xpjp
-Name: "plugin\import\csri"; Description: ASS/SSA Subtitle; Types: full full32 fulljp full32jp
-Name: "plugin\import\shrink"; Description: AutoShrink Image Reader; Types: full full32 fulljp full32jp
+Name: "plugin\import\lsw"; Description: L-Smash Works; Types: full full32 xp fulljp full32jp xpjp; Check: SSSE3; ExtraDiskSpaceRequired: 13780577
+Name: "plugin\import\csri"; Description: ASS/SSA Subtitle; Types: full full32 fulljp full32jp; ExtraDiskSpaceRequired: 1740360 
+Name: "plugin\import\shrink"; Description: AutoShrink Image Reader; Types: full full32 fulljp full32jp; Check: SSSE3; ExtraDiskSpaceRequired: 3383808
 ; Export plugins
 Name: "plugin\export"; Description: File Export Support
 ;x264GuiEx by rigaya
 Name: "plugin\export\x264gui"; Description: x264GuiEx (for AVC/H.264)
-Name: "plugin\export\x264gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32
-Name: "plugin\export\x264gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp
-Name: "plugin\export\x264gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp
-Name: "plugin\export\x264gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp
+Name: "plugin\export\x264gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 1075098
+Name: "plugin\export\x264gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 1069067
+Name: "plugin\export\x264gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 1074586
+Name: "plugin\export\x264gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 1074586
 ;x265GuiEx by rigaya
 Name: "plugin\export\x265gui"; Description: x265GuiEx (for HEVC/H.265)
-Name: "plugin\export\x265gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32
-Name: "plugin\export\x265gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp
-Name: "plugin\export\x265gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp
-Name: "plugin\export\x265gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp
+Name: "plugin\export\x265gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 1006296
+Name: "plugin\export\x265gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 1018979
+Name: "plugin\export\x265gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 1006343 
+Name: "plugin\export\x265gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 1006343
 ;ffmpegOut by rigaya
 Name: "plugin\export\ffout"; Description: ffmpegOut (encode via FFmpeg)
-Name: "plugin\export\ffout\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32
-Name: "plugin\export\ffout\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp
-Name: "plugin\export\ffout\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp
-Name: "plugin\export\ffout\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp
+Name: "plugin\export\ffout\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 755801
+Name: "plugin\export\ffout\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 721217
+Name: "plugin\export\ffout\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 752247 
+Name: "plugin\export\ffout\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 752247
+;QSVENc by rigaya
+Name: "plugin\export\qsv"; Description: ffmpegOut (encode via FFmpeg)
+Name: "plugin\export\qsv\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; Check: AVX; ExtraDiskSpaceRequired: 612962
+Name: "plugin\export\qsv\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; Check: AVX; ExtraDiskSpaceRequired: 663346
+
 ;Direct GIF Export 2
-Name: "plugin\export\dge2"; Description: Direct GIF Export 2; MinVersion: 6.1; Types: full full32 fulljp full32jp
+Name: "plugin\export\dge2"; Description: Direct GIF Export 2; MinVersion: 6.1; Types: full full32 fulljp full32jp; Check: SSSE3
 ;=====================================
 ; Filter Plugins
 ;=====================================
@@ -93,8 +100,8 @@ Name: "plugin\export\dge2"; Description: Direct GIF Export 2; MinVersion: 6.1; T
 Name: "plugin\deinterlace"; Description: De-interlacers
 ;NNEDI3
 Name: "plugin\deinterlace\nnedi3"; Description: NNEDI3 de-interlacer and upscaler
-Name: "plugin\deinterlace\nnedi3\en"; Description: English UI; Flags: exclusive; Types: full full32 xp
-Name: "plugin\deinterlace\nnedi3\jp"; Description: Japanese UI; Flags: exclusive; Types: fulljp full32jp xpjp
+Name: "plugin\deinterlace\nnedi3\en"; Description: English UI; Flags: exclusive; Types: full full32 xp; Check: SSSE3
+Name: "plugin\deinterlace\nnedi3\jp"; Description: Japanese UI; Flags: exclusive; Types: fulljp full32jp xpjp; Check:SSSE3
 ;AFS
 Name: "plugin\deinterlace\afs"; Description: Automatic Filed Shift Plus
 Name: "plugin\deinterlace\afs\en"; Description: English UI; Flags: exclusive; Types: full full32 xp
@@ -145,20 +152,20 @@ Name: "plugin\edit\resize\en"; Description: English UI; Types: full full32 xp
 Name: "plugin\edit\resize\jp"; Description: Japanese UI; Types: fulljp full32jp xpjp
 ;Liquid Rescale
 Name: "plugin\edit\lqr"; Description: Liquid Rescale (Content-aware rescale)
-Name: "plugin\edit\lqr\en"; Description: English UI; Types: full full32 fulljp full32jp
+Name: "plugin\edit\lqr\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3
 ;IppRepair:: Image inpainting and repair
 Name: "plugin\edit\ipprepair"; Description: IppRepair (Inpainting/Repair)
-Name: "plugin\edit\ipprepair\en"; Description: English UI; Types: full full32 fulljp full32jp
+Name: "plugin\edit\ipprepair\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3
 ;ImasUncaption:: Image inpainting and repair
 Name: "plugin\edit\imasuncaption"; Description: ImasUncaption (Inpainting/Repair)
 Name: "plugin\edit\ipprepair\en"; Description: English UI; Types: full full32 xp
 Name: "plugin\edit\ipprepair\jp"; Description: Japanese UI; Types: fulljp full32jp xpjp
 ;PS Level
 Name: "plugin\edit\pslevel"; Description: Photoshop-like Color Leveling
-Name: "plugin\edit\pslevel\en"; Description: English UI; Types: full full32 fulljp full32jp
+Name: "plugin\edit\pslevel\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3
 ;Sigmoidal contrast and brightness
 Name: "plugin\edit\sigcolor"; Description: Sigmoidal Contrast and Brigntness
-Name: "plugin\edit\sigcolor\en"; Description: English UI; Types: full full32 fulljp full32jp
+Name: "plugin\edit\sigcolor\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3
 
 ;------------------------------------
 ; MISC
@@ -177,9 +184,9 @@ Name: "plugin\misc\field"; Description: Field Separation and Weaving
 Name: "plugin\misc\field\en"; Description: English UI; Types: full full32 xp
 Name: "plugin\misc\field\jp"; Description: Japanese UI; Types: fulljp full32jp xpjp
 ;Motion Tracking MK-I
-Name: "plugin\misc\mtmk1"; Description: Motion Tracking MK-I(OpenCV2); Types: full full32 fulljp full32jp
+Name: "plugin\misc\mtmk1"; Description: Motion Tracking MK-I(OpenCV2); Types: full full32 fulljp full32jp; Check: SSSE3
 ;Motion Tracking MK-II
-Name: "plugin\misc\mtmk2"; Description: Motion Tracking MK-II(OpenCV3);
+Name: "plugin\misc\mtmk2"; Description: Motion Tracking MK-II(OpenCV3); Check: SSSE3
 
 ;=====================================
 ; Scripts
@@ -217,3 +224,222 @@ Name: "util\exo2sub"; Description: Convert EXO to SRT/ASS subtitle; Types: full 
 Name: "util\exostacker"; Description: Merge several EXOs in a top-down manner; Types: full full32 xp fulljp full32jp xpjp
 Name: "util\exofps"; Description: Change EXO framerate; Types: full full32 xp fulljp full32jp xpjp
 Name: "util\exofps\jp"; Description: Japanese UI; Types: full full32 xp fulljp full32jp xpjp
+
+[Files]
+Source: "cputest.dll"; Flags: dontcopy
+Source: "7za.exe"; DestDir: "{tmp}" 
+; AviUtl.exe
+Source: "base\aviutl.exe"; DestDir: "{app}"; Components: "base\ORI"
+Source: "base\aviutl_LAA.exe"; DestDir: "{app}"; DestName: "aviutl.exe"; Components: "base\LAA"
+; Exedit
+Source: "nle\en\*"; DestDir: "{app}"; Components: "nle\en"
+Source: "nle\jp\*"; DestDir: "{app}"; Components: "nle\jp"
+; Lang
+Source: "lang\EnMod_1_5XP.aul"; DestDir: "{app}"; DestName:"EnMod_1_5XP.aul"; Components: "lang\en_lucida"
+Source: "lang\EnMod1_5.aul"; DestDir: "{app}"; DestName:"EnMod1_5.aul"; Components: "lang\en_gothic"
+;================================
+; Import plugins
+;================================
+
+;DirectShow Input
+Source: "import_plugin\ds_input\*"; DestDir:"{app}\Plugins"; Components: "plugin\import\dsinput"
+
+;L-Smash Works (DL)
+; See RUN section
+;CSRI (DL)
+; See RUN section
+;AutoShrink (DL)
+; See RUN section
+
+;================================
+; Export plugins
+;================================
+
+;x264EnWin7 (DL)
+;x264JpWin7 (DL)
+;x264Xp (DL)
+
+;x265EnWin7 (DL)
+;x265JpWin7 (DL)
+;x265Xp (DL)
+
+;FFEnWin7 (DL)
+;FFJpWin7 (DL)
+;FFXp (DL)
+
+;QSVEnWin7 (DL)
+;QSVJpWin7 (DL)
+
+;DGE2
+Source: "export_plugin\dge2\*.auo"; DestDir: "{app}"; Components: "plugin\export\dge2"
+Source: "export_plugin\dge2\*.dll"; DestDir: "{app}"; Components: "plugin\export\dge2"
+Source: "export_plugin\dge2\*.exe"; DestDir: "{app}\3rdparty"; Components: "plugin\export\dge2"
+
+
+;================================
+; Deinterlacers
+;================================
+
+;================================
+; Denoisers
+;================================
+
+;================================
+; Retouch
+;================================
+
+;================================
+; MISC
+;================================
+
+;================================
+; Scripts
+;================================
+
+[Run]
+;L-Smash Works
+Filename: "{tmp}\7za.exe"; Parameters: "e -o""{app}\Plugins"" ""{tmp}\LSW.7z"""; Components: "plugin\import\lsw"
+;CSRI Subtitle Reader
+Filename: "{tmp}\7za.exe"; Parameters: "e -o""{app}"" ""{tmp}\csri.7z"""; Components: "plugin\import\csri"
+;AutoShrink Image Reader
+Filename: "{tmp}\7za.exe"; Parameters: "e -o""{app}"" ""{tmp}\shrink.7z"""; Components: "plugin\import\shrink"
+;x264GuiEx
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\en"
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\jp"
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\enxp"
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\jpxp"
+;x265GuiEx
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\en"
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\jp"
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\enxp"
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\jpxp"
+;FFmpegOut
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\en"
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\jp"
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\enxp"
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\jpxp"
+;QSVEnc
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\qsv.7z"""; Components: "plugin\export\qsv\en"
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\qsv.7z"""; Components: "plugin\export\qsv\jp"
+
+[Code]
+
+//importing an ANSI Windows API function
+function MessageBox(hWnd: Integer; lpText, lpCaption: AnsiString; uType: Cardinal): Integer;
+external 'MessageBoxA@user32.dll stdcall';
+
+function hasSSE2(): Boolean;
+external 'hasSSE2@files:cputest.dll stdcall';
+
+function hasSSSE3(): Boolean;
+external 'hasSSSE3@files:cputest.dll stdcall';
+
+function hasAVX(): Boolean;
+external 'hasAVX@files:cputest.dll stdcall';
+
+function hasAVX2(): Boolean;
+external 'hasAVX2@files:cputest.dll stdcall';
+
+function hasXOP(): Boolean;
+external 'hasXOP@files:cputest.dll stdcall';
+
+function SSE2: Boolean;
+begin
+  if hasSSE2() then
+  Result := True
+  else
+  Result := False;
+end;
+
+function SSSE3: Boolean;
+begin
+  if hasSSSE3() then
+  Result := True
+  else
+  Result := False;
+end;
+
+function AVX: Boolean;
+begin
+  if hasAVX() then
+  Result := True
+  else
+  Result := False;
+end;
+
+function AVX2: Boolean;
+begin
+  if hasAVX2() then
+  Result := True
+  else
+  Result := False;
+end;
+
+function XOP: Boolean;
+begin
+  if hasXOP() then
+  Result := True
+  else
+  Result := False;
+end;
+
+procedure InitializeWizard;
+begin
+    idpDownloadAfter(wpReady);
+end;
+
+procedure CurPageChanged(CurPageID: Integer);
+begin
+    if CurPageID = wpReady then
+    begin
+        // User can navigate to 'Ready to install' page several times, so we 
+        // need to clear file list to ensure that only needed files are added.
+        idpClearFiles;
+        // IMPORT PLUGINS
+        if IsComponentSelected('plugin\import\lsw') then
+            idpAddFile('https://www.dropbox.com/s/5mz0bemrvgsy5pn/LSW.7z?dl=1', ExpandConstant('{tmp}\LSW.7z'));
+        if IsComponentSelected('plugin\import\csri') then
+            idpAddFile('https://www.dropbox.com/s/2m7mxbw547ij0cw/CSRI.7z?dl=1', ExpandConstant('{tmp}\csri.7z'));
+        if IsComponentSelected('plugin\import\shrink') then
+            idpAddFile('https://www.dropbox.com/s/v5fc50nm7hwz0yu/AutoShrink.7z?dl=1', ExpandConstant('{tmp}\shrink.7z'));
+        // EXPORT PLUGIN
+        // x264GuiEx
+        if IsComponentSelected('plugin\export\x264gui\en') then
+            idpAddFile('https://www.dropbox.com/s/n888xsik8rjk742/x264guiExEn.7z?dl=1', ExpandConstant('{tmp}\x264gui.7z'));
+        if IsComponentSelected('plugin\export\x264gui\jp') then
+            idpAddFile('https://www.dropbox.com/s/b7gfn99zk2xlvus/x264guiExJp.7z?dl=1', ExpandConstant('{tmp}\x264gui.7z'));
+        if IsComponentSelected('plugin\export\x264gui\enxp') then
+            idpAddFile('https://www.dropbox.com/s/yzn949vi6skolch/x264guiXP.7z?dl=1', ExpandConstant('{tmp}\x264gui.7z'));
+        if IsComponentSelected('plugin\export\x264gui\jpxp') then
+            idpAddFile('https://www.dropbox.com/s/yzn949vi6skolch/x264guiXP.7z?dl=1', ExpandConstant('{tmp}\x264gui.7z'));
+        // x265GuiEx
+        if IsComponentSelected('plugin\export\x265gui\en') then
+            idpAddFile('https://www.dropbox.com/s/dijd7fh8xj0vbo7/x265guiExEn.7z?dl=1', ExpandConstant('{tmp}\x265gui.7z'));
+        if IsComponentSelected('plugin\export\x265gui\jp') then
+            idpAddFile('https://www.dropbox.com/s/432ajbpkfj61f4r/x265guiExJp.7z?dl=1', ExpandConstant('{tmp}\x265gui.7z'));
+        if IsComponentSelected('plugin\export\x265gui\enxp') then
+            idpAddFile('https://www.dropbox.com/s/d5xi97osqop9zjg/x265guiXP.7z?dl=1', ExpandConstant('{tmp}\x265gui.7z'));
+        if IsComponentSelected('plugin\export\x265gui\jpxp') then
+            idpAddFile('https://www.dropbox.com/s/d5xi97osqop9zjg/x265guiXP.7z?dl=1', ExpandConstant('{tmp}\x265gui.7z'));
+        // FFmpegOut
+        if IsComponentSelected('plugin\export\ffout\en') then
+            idpAddFile('https://www.dropbox.com/s/phak9slrmqwij6w/ffoutEn.7z?dl=1', ExpandConstant('{tmp}\ffout.7z'));
+        if IsComponentSelected('plugin\export\ffout\jp') then
+            idpAddFile('https://www.dropbox.com/s/nqqpvza1hsv40xw/ffoutJp.7z?dl=1', ExpandConstant('{tmp}\ffout.7z'));
+        if IsComponentSelected('plugin\export\ffout\enxp') then
+            idpAddFile('https://www.dropbox.com/s/ley23n305bv7yuv/ffoutXP.7z?dl=1', ExpandConstant('{tmp}\ffout.7z'));
+        if IsComponentSelected('plugin\export\ffout\jpxp') then
+            idpAddFile('https://www.dropbox.com/s/ley23n305bv7yuv/ffoutXP.7z?dl=1', ExpandConstant('{tmp}\ffout.7z'));
+        // QSVEnc
+        if IsComponentSelected('plugin\export\qsv\en') then
+            idpAddFile('https://www.dropbox.com/s/7zzl0hme9zzmwz8/QSVEncEn.7z?dl=1', ExpandConstant('{tmp}\qsv.7z'));
+        if IsComponentSelected('plugin\export\qsv\jp') then
+            idpAddFile('https://www.dropbox.com/s/joyfo560o92511p/QSVEncJp.7z?dl=1', ExpandConstant('{tmp}\qsv.7z'));
+
+
+
+  end;
+end;
+
+
+

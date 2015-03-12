@@ -143,29 +143,29 @@ Name: "plugin\denoise\ring\jp"; Description: Japanese UI; Flags: exclusive; Type
 ;------------------------------------
 Name: "plugin\edit"; Description: Image Retouching
 ;logo analysis and transparent logo
-Name: "plugin\edit\logo"; Description: Logo Analysis and Removal
+Name: "plugin\edit\logo"; Description: Logo Analysis and Removal (Makki)
 Name: "plugin\edit\logo\en"; Description: English UI; Types: full full32 xp
 Name: "plugin\edit\logo\jp"; Description: Japanese UI; Types: fulljp full32jp xpjp
 ;Resize filter
-Name: "plugin\edit\resize"; Description: Resize filter (SSE2 and AVX support)
+Name: "plugin\edit\resize"; Description: Resize filter (SSE2,AVX,AVX2,XOP support)
 Name: "plugin\edit\resize\en"; Description: English UI; Types: full full32 xp
 Name: "plugin\edit\resize\jp"; Description: Japanese UI; Types: fulljp full32jp xpjp
 ;Liquid Rescale
 Name: "plugin\edit\lqr"; Description: Liquid Rescale (Content-aware rescale)
-Name: "plugin\edit\lqr\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3
+Name: "plugin\edit\lqr\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3; ExtraDiskSpaceRequired: 3989602
 ;IppRepair:: Image inpainting and repair
 Name: "plugin\edit\ipprepair"; Description: IppRepair (Inpainting/Repair)
-Name: "plugin\edit\ipprepair\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3
+Name: "plugin\edit\ipprepair\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3; ExtraDiskSpaceRequired: 3243618
 ;ImasUncaption:: Image inpainting and repair
 Name: "plugin\edit\imasuncaption"; Description: ImasUncaption (Inpainting/Repair)
-Name: "plugin\edit\ipprepair\en"; Description: English UI; Types: full full32 xp
-Name: "plugin\edit\ipprepair\jp"; Description: Japanese UI; Types: fulljp full32jp xpjp
+Name: "plugin\edit\imasuncaption\en"; Description: English UI; Types: full full32 xp
+Name: "plugin\edit\imasuncaption\jp"; Description: Japanese UI(HD hack); Types: fulljp full32jp xpjp
 ;PS Level
 Name: "plugin\edit\pslevel"; Description: Photoshop-like Color Leveling
-Name: "plugin\edit\pslevel\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3
+Name: "plugin\edit\pslevel\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3; ExtraDiskSpaceRequired: 928912
 ;Sigmoidal contrast and brightness
 Name: "plugin\edit\sigcolor"; Description: Sigmoidal Contrast and Brigntness
-Name: "plugin\edit\sigcolor\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3
+Name: "plugin\edit\sigcolor\en"; Description: English UI; Types: full full32 fulljp full32jp; Check: SSSE3; ExtraDiskSpaceRequired: 925328
 
 ;------------------------------------
 ; MISC
@@ -184,9 +184,9 @@ Name: "plugin\misc\field"; Description: Field Separation and Weaving
 Name: "plugin\misc\field\en"; Description: English UI; Types: full full32 xp
 Name: "plugin\misc\field\jp"; Description: Japanese UI; Types: fulljp full32jp xpjp
 ;Motion Tracking MK-I
-Name: "plugin\misc\mtmk1"; Description: Motion Tracking MK-I(OpenCV2); Types: full full32 fulljp full32jp; Check: SSSE3
+Name: "plugin\misc\mtmk1"; Description: Motion Tracking MK-I(OpenCV2); Types: full full32 fulljp full32jp; Check: SSSE3; ExtraDiskSpaceRequired: 6004297
 ;Motion Tracking MK-II
-Name: "plugin\misc\mtmk2"; Description: Motion Tracking MK-II(OpenCV3); Check: SSSE3
+Name: "plugin\misc\mtmk2"; Description: Motion Tracking MK-II(OpenCV3-AVX); Check: AVX; ExtraDiskSpaceRequired: 16998445
 
 ;=====================================
 ; Scripts
@@ -279,21 +279,110 @@ Source: "export_plugin\dge2\*.exe"; DestDir: "{app}\3rdparty"; Components: "plug
 ;================================
 ; Deinterlacers
 ;================================
+;NNEDI3
+Source: "deinterlace_plugin\nnedi3\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\nnedi3\en"
+Source: "deinterlace_plugin\nnedi3\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\nnedi3\jp"
+;AFS
+Source: "deinterlace_plugin\afs\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\afs\en"
+Source: "deinterlace_plugin\afs\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\afs\jp"
+;AFS-VF
+Source: "deinterlace_plugin\afsvf\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\afsvf\en"
+Source: "deinterlace_plugin\afsvf\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\afsvf\jp"
 
 ;================================
 ; Denoisers
 ;================================
+;NLMeans GPU
+Source: "denoise_plugin\nlmeans_gpu\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\denoise\nlgpuc\en"
+Source: "denoise_plugin\nlmeans_gpu\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\denoise\nlgpuc\jp"
+
+;NLMeans Light CPU
+Source: "denoise_plugin\nlmeans_light\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\denoise\nllight\en"
+Source: "denoise_plugin\nlmeans_light\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\denoise\nllight\jp"
+
+;PMD-MT
+Source: "denoise_plugin\pmdmt\en\pmd_mt_w7.auf"; DestDir: "{app}\Plugins"; DestName: "pmd_mt.auf"; MinVersion: 6.1; Components: "plugin\denoise\pmdmt\en"
+Source: "denoise_plugin\pmdmt\jp\*"; DestDir: "{app}\Plugins"; MinVersion: 6.1; Components: "plugin\denoise\pmdmt\jp"
+Source: "denoise_plugin\pmdmt\en\pmd_mt_xp.auf"; DestDir: "{app}\Plugins"; DestName: "pmd_mt.auf"; OnlyBelowVersion: 6.1; Components: plugin\denoise\pmdmt\en or plugin\denoise\pmdmt\jp
+
+;Chroma noise
+Source: "denoise_plugin\chroma\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\denoise\chroma\en"
+Source: "denoise_plugin\chroma\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\denoise\chroma\jp"
+
+;Wavelet
+Source: "denoise_plugin\waveletG\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\denoise\waveletg\en"
+Source: "denoise_plugin\waveletG\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\denoise\waveletg\jp"
+
+
+;Ringing
+Source: "denoise_plugin\ring\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\denoise\ring\en"
+Source: "denoise_plugin\ring\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\denoise\ring\jp"
+
 
 ;================================
 ; Retouch
 ;================================
+;Logo
+Source: "filter_plugin\logo\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\edit\logo\en"
+Source: "filter_plugin\logo\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\edit\logo\jp"
+
+;Resize
+Source: "filter_plugin\resize\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\edit\resize\en"
+Source: "filter_plugin\resize\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\edit\resize\jp"
+Source: "filter_plugin\resize\DLL\sse2*.dll"; DestDir: "{app}\Plugins\DLL"; Components: plugin\edit\resize\jp or plugin\edit\resize\en
+Source: "filter_plugin\resize\DLL\wndfuncs.dll"; DestDir: "{app}\Plugins\DLL"; Components: plugin\edit\resize\jp or plugin\edit\resize\en
+Source: "filter_plugin\resize\DLL\avxfilter.dll"; DestDir: "{app}\Plugins\DLL"; Components: plugin\edit\resize\jp or plugin\edit\resize\en; Check: AVX; MinVersion: 6.1
+Source: "filter_plugin\resize\DLL\avx2filter.dll"; DestDir: "{app}\Plugins\DLL"; Components: plugin\edit\resize\jp or plugin\edit\resize\en; Check: AVX2; MinVersion: 6.1
+Source: "filter_plugin\resize\DLL\xopfilter.dll"; DestDir: "{app}\Plugins\DLL"; Components: plugin\edit\resize\jp or plugin\edit\resize\en; Check: XOP; MinVersion: 6.1
+
+;ImasUncaption (JP-HD version)
+Source: "filter_plugin\imas\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\edit\imasuncaption\en"
+Source: "filter_plugin\imas\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\edit\imasuncaption\jp"
+;LQR (DL)
+
+;IppRepair (DL)
+
+;PScolor (DL)
+
+;SigCOlor (DL)
+
 
 ;================================
 ; MISC
 ;================================
+;Chapter
+Source: "misc_plugin\chapter\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\misc\chapter\en"
+Source: "misc_plugin\chapter\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\misc\chapter\jp"
+
+;Mag Glass
+Source: "misc_plugin\magglass\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\misc\mag\en"
+Source: "misc_plugin\magglass\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\misc\mag\jp"
+
+;Field
+Source: "misc_plugin\field\en\*"; DestDir: "{app}\Plugins"; Components: plugin\misc\field\en or plugin\misc\field\jp
+
+;MotionTrack-I (DL)
+
+;MotionTrack-II (DL)
+
+;================================
+; DLL Dependency
+;================================
+;VC2010~VC2013 32bit DLLs
+Source: "Dependency\*"; DestDir:"{app}"
+
+
+;================================
+; 3rd Party Tools
+;================================
+
 
 ;================================
 ; Scripts
+;================================
+
+;================================
+; Utils
 ;================================
 
 [Run]
@@ -321,6 +410,18 @@ Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\ffout.7z""
 ;QSVEnc
 Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\qsv.7z"""; Components: "plugin\export\qsv\en"
 Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\qsv.7z"""; Components: "plugin\export\qsv\jp"
+;LQR
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\lqr.7z"""; Components: "plugin\edit\lqr\en"
+;PSLevel
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\pslevel.7z"""; Components: "plugin\edit\pslevel\en"
+;SigColor
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\sigcolor.7z"""; Components: "plugin\edit\sigcolor\en"
+;IppRepair
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\ipprepair.7z"""; Components: "plugin\edit\ipprepair\en"
+;MotionTracking MK-I
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\mtmk1.7z"""; Components: "plugin\misc\mtmk1"
+;MotionTracking MK-II
+Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\mtmk2.7z"""; Components: "plugin\misc\mtmk2"
 
 [Code]
 
@@ -435,6 +536,28 @@ begin
             idpAddFile('https://www.dropbox.com/s/7zzl0hme9zzmwz8/QSVEncEn.7z?dl=1', ExpandConstant('{tmp}\qsv.7z'));
         if IsComponentSelected('plugin\export\qsv\jp') then
             idpAddFile('https://www.dropbox.com/s/joyfo560o92511p/QSVEncJp.7z?dl=1', ExpandConstant('{tmp}\qsv.7z'));
+        // RETOUCHING
+        // LQR
+        if IsComponentSelected('plugin\edit\lqr\en') then
+            idpAddFile('https://www.dropbox.com/s/5qt7phpvftah2ph/LQR.7z?dl=1', ExpandConstant('{tmp}\lqr.7z'));
+        // PSLevel
+        if IsComponentSelected('plugin\edit\pslevel\en') then
+            idpAddFile('https://www.dropbox.com/s/h7ylb8ctbi5ker3/pslevel.7z?dl=1', ExpandConstant('{tmp}\pslevel.7z'));
+        // SigColor
+        if IsComponentSelected('plugin\edit\sigcolor\en') then
+            idpAddFile('https://www.dropbox.com/s/vusu0ouokmm4rrd/sigcolor.7z?dl=1', ExpandConstant('{tmp}\sigcolor.7z'));
+        // IppRepair
+        if IsComponentSelected('plugin\edit\ipprepair\en') then
+            idpAddFile('https://www.dropbox.com/s/5krk2oiy0ieb21s/ipprepair.7z?dl=1', ExpandConstant('{tmp}\ipprepair.7z'));
+
+        // MISC
+        // MotionTracking MK-I
+        if IsComponentSelected('plugin\misc\mtmk1') then
+            idpAddFile('https://www.dropbox.com/s/j3jc8xgzkyzj2nw/mtmk1.7z?dl=1', ExpandConstant('{tmp}\mtmk1.7z'));
+        // MotionTracking MK-II
+        if IsComponentSelected('plugin\misc\mtmk2') then
+            idpAddFile('https://www.dropbox.com/s/m49ih04z0giuwc8/mtmk2.7z?dl=1', ExpandConstant('{tmp}\mtmk2.7z'));
+
 
 
 

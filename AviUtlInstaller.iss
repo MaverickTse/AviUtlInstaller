@@ -11,38 +11,60 @@
 ; No need to check for Vista since WinSDK8.1 is incompatible with Vista.
 ; WinSDK 7 is compatible with both XP and Vista
 [Languages]
-Name: "en"; MessagesFile: "compiler:Default.isl"
-Name: "jp"; MessagesFile: "compiler:Languages\Japanese.isl"
+Name: "en"; MessagesFile: "compiler:Default.isl"; InfoAfterFile: "post_readme_en.txt"; InfoBeforeFile: "pre_readme.txt"
+Name: "jp"; MessagesFile: "compiler:Languages\Japanese.isl"; InfoAfterFile: "post_readme_jp_jis.txt"; InfoBeforeFile: "pre_readme_jp_jis.txt"
 
 [Setup]
-AppName=AviUtl English Extra Pack
+AppName=AviUtl Extra Pack
 AppVersion=1.11
 DefaultDirName={sd}\AviUtl
-DefaultGroupName=AviUtl
 Compression=lzma/ultra
 MinVersion=5.1sp3
-;ArchitecturesInstallIn64BitMode=x64
-AppPublisher=Kenくん,Muken,MaverickTse,et.al.
+ArchitecturesInstallIn64BitMode=x64
+AppPublisher=MaverickTse,et.al.
 AppSupportURL=http://forum.videohelp.com/threads/366724-Aviutl-Tips-Tricks-and-Support-thread
 
-;↓Internet Download Plugin
+;Internet Download Plugin
 #include <idp.iss>
+DefaultGroupName=AviUtl
+UninstallDisplayName=Uninstall AviUtl
+UninstallDisplayIcon={uninstallexe}
+AlwaysUsePersonalGroup=True
+AppendDefaultGroupName=False
 
+[CustomMessages]
+en.StdInst64= Standard for Win7 64bit(English)
+jp.StdInst64= 標準 Win7 64bit(日本語)
+en.StdInst32= Standard for Win7 32bit(English)
+jp.StdInst32= 標準 Win7 32bit(日本語)
 
+en.FullInst64= Full install for Win7 64bit(English)
+jp.FullInst64= 全ての物 Win7 64bit(日本語)
+en.FullInst32= Full install for Win7 32/64bit(English)
+jp.FullInst32= 全ての物 for Win7 32/64bit(日本語)
+
+en.XPInst= Compatibility pack for WinXP/Vista(English)
+jp.XPInst= WinXP/Vista 対応(日本語)
+
+en.MinInst= Minimal(English)
+jp.MinInst= 基本(日本語)
+
+en.CustInst= Custom Installation
+jp.CustInst= 自定義
 
 [Types]
 ; English
-Name: "full"; Description: "Full install for Win7 64bit(English)"; MinVersion: 6.1; Check: IsWin64
-Name: "full32"; Description: "Full install for Win7 32/64bit(English)"; MinVersion: 6.1
-Name: "xp"; Description: "Compatibility pack for WinXP/Vista(English)"; MinVersion: 5.1sp3
-Name: "compact"; Description: "Minimal(English)"; MinVersion: 5.1
+Name: "full"; Description: {cm:FullInst64}; MinVersion: 6.1; Check: IsWin64; Languages: en
+Name: "full32"; Description: {cm:FullInst32}; MinVersion: 6.1; Languages: en
+Name: "xp"; Description: {cm:XPInst}; MinVersion: 5.1sp3; Languages: en
+Name: "compact"; Description: {cm:MinInst}; MinVersion: 5.1; Languages: en
 ; Japanese
-Name: "fulljp"; Description: "Full install for Win7 64bit(Japanese)"; MinVersion: 6.1; Check: IsWin64; Languages: jp
-Name: "full32jp"; Description: "Full install for Win7 32/64bit(Japanese)"; MinVersion: 6.1; Languages: jp
-Name: "xpjp"; Description: "Compatibility pack for WinXP/Vista(Japanese)"; MinVersion: 5.1sp3; Languages: jp
-Name: "compactjp"; Description: "Minimal(Japanese)"; MinVersion: 5.1; Languages: jp
+Name: "fulljp"; Description: {cm:FullInst64}; MinVersion: 6.1; Check: IsWin64; Languages: jp
+Name: "full32jp"; Description: {cm:FullInst32}; MinVersion: 6.1; Languages: jp
+Name: "xpjp"; Description: {cm:XPInst}; MinVersion: 5.1sp3; Languages: jp
+Name: "compactjp"; Description: {cm:MinInst}; MinVersion: 5.1; Languages: jp
 ; Custom
-Name: "custom"; Description: "Custom Installation"; Flags: iscustom
+Name: "custom"; Description: {cm:CustInst}; Flags: iscustom
 
 [Components]
 ; AviUtl.exe :: Large Address Aware needs to be another binary
@@ -62,7 +84,7 @@ Name: "plugin"; Description: Optional Plugins
 ; Import plugins
 Name: "plugin\import"; Description: File Import Support
 Name: "plugin\import\dsinput"; Description: DirectShow Input; Types: full full32 xp compact fulljp full32jp xpjp compactjp
-Name: "plugin\import\lsw"; Description: L-Smash Works; Types: full full32 xp fulljp full32jp xpjp; Check: SSSE3; ExtraDiskSpaceRequired: 13780577
+Name: "plugin\import\lsw"; Description: L-SMASH Works; Types: full full32 xp fulljp full32jp xpjp; Check: SSSE3; ExtraDiskSpaceRequired: 13780577
 Name: "plugin\import\csri"; Description: ASS/SSA Subtitle; Types: full full32 fulljp full32jp; ExtraDiskSpaceRequired: 1740360 
 Name: "plugin\import\shrink"; Description: AutoShrink Image Reader; Types: full full32 fulljp full32jp; Check: SSSE3; ExtraDiskSpaceRequired: 3383808
 ; Export plugins
@@ -103,11 +125,11 @@ Name: "plugin\deinterlace\nnedi3"; Description: NNEDI3 de-interlacer and upscale
 Name: "plugin\deinterlace\nnedi3\en"; Description: English UI; Flags: exclusive; Types: full full32 xp; Check: SSSE3
 Name: "plugin\deinterlace\nnedi3\jp"; Description: Japanese UI; Flags: exclusive; Types: fulljp full32jp xpjp; Check:SSSE3
 ;AFS
-Name: "plugin\deinterlace\afs"; Description: Automatic Filed Shift Plus
+Name: "plugin\deinterlace\afs"; Description: Automatic Field Shift Plus
 Name: "plugin\deinterlace\afs\en"; Description: English UI; Flags: exclusive; Types: full full32 xp
 Name: "plugin\deinterlace\afs\jp"; Description: Japanese UI; Flags: exclusive; Types: fulljp full32jp xpjp
 ;AFS-VF
-Name: "plugin\deinterlace\afsvf"; Description: Automatic Filed Shift Plus (VideoFilter)
+Name: "plugin\deinterlace\afsvf"; Description: Automatic Field Shift Plus (VideoFilter)
 Name: "plugin\deinterlace\afsvf\en"; Description: English UI; Flags: exclusive; Types: full full32 xp
 Name: "plugin\deinterlace\afsvf\jp"; Description: Japanese UI; Flags: exclusive; Types: fulljp full32jp xpjp
 ;------------------------------------
@@ -115,9 +137,9 @@ Name: "plugin\deinterlace\afsvf\jp"; Description: Japanese UI; Flags: exclusive;
 ;------------------------------------
 Name: "plugin\denoise"; Description: Denoisers
 ;NL-Means for GPU Type-C
-Name: "plugin\denoise\nlgpuc"; Description: NL-Means for GPU Type-C
-Name: "plugin\denoise\nlgpuc\en"; Description: English UI; Flags: exclusive; Types: full full32 xp
-Name: "plugin\denoise\nlgpuc\jp"; Description: Japanese UI; Flags: exclusive; Types: fulljp full32jp xpjp
+Name: "plugin\denoise\nlgpuc"; Description: NL-Means for GPU Type-C; Check: PS30
+Name: "plugin\denoise\nlgpuc\en"; Description: English UI; Flags: exclusive; Types: full full32 xp; Check: PS30
+Name: "plugin\denoise\nlgpuc\jp"; Description: Japanese UI; Flags: exclusive; Types: fulljp full32jp xpjp; Check: PS30
 ;NL-Means Light (CPU-only)
 Name: "plugin\denoise\nllight"; Description: NL-Means Light
 Name: "plugin\denoise\nllight\en"; Description: English UI; Flags: exclusive; Types: full full32 xp
@@ -196,25 +218,27 @@ Name: "script"; Description: Effect Scripts and Custom Objects
 Name: "script\satsuki"; Description: Scripts by Satsuki; Types: full full32 xp fulljp full32jp xpjp
 Name: "script\tim"; Description: Scripts by Tim; Types: full full32 xp fulljp full32jp xpjp
 Name: "script\rikki"; Description: Scripts by Rikki; Types: full full32 xp fulljp full32jp xpjp
-Name: "script\hksy"; Description: Scripts by hksy; Types: full full32 xp fulljp full32jp xpjp
 Name: "script\mt"; Description: Scripts by MaverickTse; Types: full full32 xp fulljp full32jp xpjp
 Name: "script\mt\svg"; Description: SVG Custom Object; Types: full full32 xp fulljp full32jp xpjp
 Name: "script\others"; Description: Scripts by various authors; Types: full full32 xp fulljp full32jp xpjp
+Name: "script\kirikiri"; Description: "Transition patterns(kikyou.info)"; Types: full full32 xp fulljp full32jp xpjp
 
 ;=====================================
 ; 3rd-Party Tools
 ;=====================================
 Name: "party"; Description: "Third-Party Tools"
-Name: "party\ls"; Description: L-Smash (required by x26XGuiEx); Types: full full32 xp fulljp full32jp xpjp
-Name: "party\ffmpeg"; Description: FFmpeg (required by ffmpegOut); Types: full full32 xp fulljp full32jp xpjp
-Name: "party\x264"; Description: x264 AVC video encoder; Types: full full32 xp fulljp full32jp xpjp
-Name: "party\x265"; Description: x265 HEVC video encoder; Types: full full32 xp fulljp full32jp xpjp
+Name: "party\ls"; Description: L-SMASH (required by x26XGuiEx); Types: full full32 xp fulljp full32jp xpjp; ExtraDiskSpaceRequired: 2007040
+Name: "party\ffmpeg"; Description: FFmpeg (required by ffmpegOut); Types: full full32 xp fulljp full32jp xpjp; ExtraDiskSpaceRequired: 32685568
+Name: "party\x264"; Description: x264 AVC video encoder; Types: full full32 xp fulljp full32jp xpjp; ExtraDiskSpaceRequired: 10940416
+Name: "party\x265"; Description: x265 HEVC video encoder; Types: full full32 xp fulljp full32jp xpjp; ExtraDiskSpaceRequired: 3230720
 Name: "party\qaac"; Description: AAC Audio Encoder (requires iTune); Types: full full32 xp fulljp full32jp xpjp
-Name: "party\neroaac"; Description: AAC Audio Encoder (Nero); Types: full full32 xp fulljp full32jp xpjp
+;Name: "party\neroaac"; Description: AAC Audio Encoder (Nero); Types: full full32 xp fulljp full32jp xpjp
 Name: "party\opus"; Description: Opus audio encoder; Types: full full32 xp fulljp full32jp xpjp
 Name: "party\ogg"; Description: Ogg audio encoder; Types: full full32 xp fulljp full32jp xpjp
 Name: "party\flac"; Description: FLAC audio encoder; Types: full full32 xp fulljp full32jp xpjp
-Name: "party\mkvmerge"; Description: MKVMerge (required to export MKV); Types: full full32 xp fulljp full32jp xpjp
+Name: "party\fawcl"; Description: FakeAACWave audio encoder; Types: full full32 xp fulljp full32jp xpjp
+Name: "party\mplex"; Description: MJPEG multiplexer; Types: full full32 xp fulljp full32jp xpjp
+Name: "party\mkvmerge"; Description: MKVMerge (required to export MKV); Types: full full32 xp fulljp full32jp xpjp; ExtraDiskSpaceRequired: 8744960
 
 ;=====================================
 ; Utilities
@@ -222,27 +246,40 @@ Name: "party\mkvmerge"; Description: MKVMerge (required to export MKV); Types: f
 Name: "util"; Description: Small Utilities
 Name: "util\exo2sub"; Description: Convert EXO to SRT/ASS subtitle; Types: full full32 xp fulljp full32jp xpjp
 Name: "util\exostacker"; Description: Merge several EXOs in a top-down manner; Types: full full32 xp fulljp full32jp xpjp
+Name: "util\slideshow"; Description: Create EXO with a series of images; Types: full full32 xp fulljp full32jp xpjp
 Name: "util\exofps"; Description: Change EXO framerate; Types: full full32 xp fulljp full32jp xpjp
 Name: "util\exofps\jp"; Description: Japanese UI; Types: full full32 xp fulljp full32jp xpjp
 
 [Files]
 Source: "cputest.dll"; Flags: dontcopy
-Source: "7za.exe"; DestDir: "{tmp}" 
+Source: "haspShader3.dll"; Flags: dontcopy
+Source: "7za.exe"; DestDir: "{tmp}"
+; License
+Source: "readme_srclist\*"; DestDir:"{app}\readme_srclist"; Flags: recursesubdirs createallsubdirs
 ; AviUtl.exe
 Source: "base\aviutl.exe"; DestDir: "{app}"; Components: "base\ORI"
 Source: "base\aviutl_LAA.exe"; DestDir: "{app}"; DestName: "aviutl.exe"; Components: "base\LAA"
+Source: "base\*.txt"; DestDir: "{app}\readme_srclist"; Components: base\ORI or base\LAA
+; Alert Sound
+Source: "AlertSound\*"; DestDir:"{app}\AlertSound"
 ; Exedit
-Source: "nle\en\*"; DestDir: "{app}"; Components: "nle\en"
-Source: "nle\jp\*"; DestDir: "{app}"; Components: "nle\jp"
+Source: "nle\en\*"; DestDir: "{app}"; Components: "nle\en"; Excludes: "*.txt"
+Source: "nle\*.txt"; DestDir: "{app}\readme_srclist"; Components: "nle\en"
+Source: "nle\jp\*"; DestDir: "{app}"; Components: "nle\jp"; Excludes: "*.txt"
+Source: "nle\*.txt"; DestDir: "{app}\readme_srclist"; Components: "nle\jp"
 ; Lang
 Source: "lang\EnMod_1_5XP.aul"; DestDir: "{app}"; DestName:"EnMod_1_5XP.aul"; Components: "lang\en_lucida"
 Source: "lang\EnMod1_5.aul"; DestDir: "{app}"; DestName:"EnMod1_5.aul"; Components: "lang\en_gothic"
+Source: "base\aviutl_w7.ini"; DestDir: "{app}"; DestName:"aviutl.ini"; MinVersion: 6.1; Languages: en
+Source: "base\aviutl_xp.ini"; DestDir: "{app}"; DestName:"aviutl.ini"; OnlyBelowVersion: 6.1; Languages: en
+Source: "base\aviutl_jp.ini"; DestDir: "{app}"; DestName:"aviutl.ini"; Languages: jp
 ;================================
 ; Import plugins
 ;================================
 
 ;DirectShow Input
-Source: "import_plugin\ds_input\*"; DestDir:"{app}\Plugins"; Components: "plugin\import\dsinput"
+Source: "import_plugin\ds_input\*"; DestDir:"{app}\Plugins"; Components: "plugin\import\dsinput"; Excludes: "*.txt"
+Source: "import_plugin\ds_input\*.txt"; DestDir:"{app}\readme_srclist"; Components: "plugin\import\dsinput";
 
 ;L-Smash Works (DL)
 ; See RUN section
@@ -280,8 +317,10 @@ Source: "export_plugin\dge2\*.exe"; DestDir: "{app}\3rdparty"; Components: "plug
 ; Deinterlacers
 ;================================
 ;NNEDI3
-Source: "deinterlace_plugin\nnedi3\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\nnedi3\en"
-Source: "deinterlace_plugin\nnedi3\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\nnedi3\jp"
+Source: "deinterlace_plugin\nnedi3\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\nnedi3\en"; Excludes: "*.txt"
+Source: "deinterlace_plugin\nnedi3\en\*.txt"; DestDir: "{app}\readme_srclist"; Components: "plugin\deinterlace\nnedi3\en"
+Source: "deinterlace_plugin\nnedi3\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\nnedi3\jp"; Excludes: "*.txt"
+Source: "deinterlace_plugin\nnedi3\jp\*.txt"; DestDir: "{app}\readme_srclist"; Components: "plugin\deinterlace\nnedi3\jp"
 ;AFS
 Source: "deinterlace_plugin\afs\en\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\afs\en"
 Source: "deinterlace_plugin\afs\jp\*"; DestDir: "{app}\Plugins"; Components: "plugin\deinterlace\afs\jp"
@@ -375,54 +414,158 @@ Source: "Dependency\*"; DestDir:"{app}"
 ;================================
 ; 3rd Party Tools
 ;================================
+;L-smash(DL)
 
+;FFmpeg(DL)
+
+;x264
+Source: "{tmp}\x264_8bpp.exe"; DestDir: "{app}\3rdParty"; Components: party\x264; Flags: external
+Source: "{tmp}\x264_10bpp.exe"; DestDir: "{app}\3rdParty"; Components: party\x264; Flags: external
+;x265(DL)
+
+;qaac(DL+iTune)
+
+;neroaac(DL)
+
+;opusenc
+Source: "party\opusenc.exe"; DestDir: "{app}\3rdparty"; Components: party\opus
+
+;flac
+Source: "party\flac.exe"; DestDir: "{app}\3rdparty"; Components: party\flac
+
+;ogg
+Source: "party\oggenc2.exe"; DestDir: "{app}\3rdparty"; Components: party\ogg
+
+;mplex
+Source: "party\mplex.exe"; DestDir: "{app}\3rdparty"; Components: party\mplex
+;fawcl
+Source: "party\fawcl.exe"; DestDir: "{app}\3rdparty"; Components: party\fawcl
+
+;mkvmerge(DL)
 
 ;================================
 ; Scripts
 ;================================
+;Satsuki
+Source: "script\en\Satsuki\*"; DestDir:"{app}\Scripts\Satsuki"; Components: script\satsuki and nle\en
+Source: "script\jp\Satsuki\*"; DestDir:"{app}\Scripts\Satsuki"; Components: script\satsuki and nle\jp
+Source: "script\jp\Satsuki_ANM\*"; DestDir:"{app}\Scripts\Satsuki_ANM"; Components: script\satsuki and nle\jp
+Source: "script\jp\Satsuki_TA\*"; DestDir:"{app}\Scripts\Satsuki_TA"; Components: script\satsuki and nle\jp
+;TIM
+Source: "script\en\TIM\*"; DestDir:"{app}\Scripts\TIM"; Components: script\tim and nle\en
+Source: "script\jp\TIM\*"; DestDir:"{app}\Scripts\TIM"; Components: script\tim and nle\jp
+;Rikki
+Source: "script\en\Rikki\*"; DestDir:"{app}\Scripts\Rikki"; Components: script\rikki and nle\en
+Source: "script\jp\Rikki\*"; DestDir:"{app}\Scripts\Rikki"; Components: script\rikki and nle\jp
+;Others
+Source: "script\en\Others\*"; DestDir:"{app}\Scripts\Others"; Components: script\others and nle\en
+Source: "script\jp\Others\*"; DestDir:"{app}\Scripts\Others"; Components: script\others and nle\jp
+;SVG
+Source: "script\en\SVG\*.dll"; DestDir:"{app}"; Components: script\mt\svg and nle\en
+Source: "script\en\SVG\script\*"; DestDir:"{app}\Scripts\SVG"; Components: script\mt\svg and nle\en
+Source: "script\jp\SVG\*.dll"; DestDir:"{app}"; Components: script\mt\svg and nle\jp
+Source: "script\jp\SVG\script\*"; DestDir:"{app}\Scripts\SVG"; Components: script\mt\svg and nle\jp
+;KiriKiri scene change
+Source: "kirikiri\en\*"; DestDir: "{app}\Transition"; Components: script\kirikiri and nle\en
+Source: "kirikiri\jp\*"; DestDir: "{app}\Transition"; Components: script\kirikiri and nle\jp
 
 ;================================
 ; Utils
 ;================================
-
+;EXO2Sub
+Source: "util\EXO2Subs\Samples\*"; DestDir:"{app}\Utilities\EXO2Sub\Samples"; Components: util\exo2sub
+Source: "util\EXO2Subs\Scripts\*"; DestDir:"{app}\Utilities\EXO2Sub\Scripts"; Components: util\exo2sub
+Source: "util\EXO2Subs\*.txt"; DestDir:"{app}\Utilities\EXO2Sub"; Components: util\exo2sub
+;Stacker
+Source: "util\EXOStacker.exe"; DestDir:"{app}\Utilities"; Components: util\exostacker
+;SlideShow
+Source: "util\SlideShowHelperEN.exe"; DestDir:"{app}\Utilities"; Components: util\slideshow
+;FPS
+Source: "util\AviUtl_ExoExpander.exe"; DestDir:"{app}\Utilities"; Components: util\exofps\jp
 [Run]
 ;L-Smash Works
-Filename: "{tmp}\7za.exe"; Parameters: "e -o""{app}\Plugins"" ""{tmp}\LSW.7z"""; Components: "plugin\import\lsw"
+Filename: "{tmp}\7za.exe"; Parameters: "e -y -o""{app}\Plugins"" ""{tmp}\LSW.7z"""; Components: "plugin\import\lsw"; Flags: runhidden
 ;CSRI Subtitle Reader
-Filename: "{tmp}\7za.exe"; Parameters: "e -o""{app}"" ""{tmp}\csri.7z"""; Components: "plugin\import\csri"
+Filename: "{tmp}\7za.exe"; Parameters: "e -y -o""{app}"" ""{tmp}\csri.7z"""; Components: "plugin\import\csri"; Flags: runhidden
 ;AutoShrink Image Reader
-Filename: "{tmp}\7za.exe"; Parameters: "e -o""{app}"" ""{tmp}\shrink.7z"""; Components: "plugin\import\shrink"
+Filename: "{tmp}\7za.exe"; Parameters: "e -y -o""{app}"" ""{tmp}\shrink.7z"""; Components: "plugin\import\shrink"; Flags: runhidden
 ;x264GuiEx
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\en"
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\jp"
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\enxp"
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\jpxp"
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\en"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\jp"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\enxp"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\x264gui.7z"""; Components: "plugin\export\x264gui\jpxp"; Flags: runhidden
 ;x265GuiEx
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\en"
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\jp"
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\enxp"
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\jpxp"
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\en"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\jp"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\enxp"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\x265gui.7z"""; Components: "plugin\export\x265gui\jpxp"; Flags: runhidden
 ;FFmpegOut
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\en"
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\jp"
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\enxp"
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\jpxp"
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\en"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\jp"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\enxp"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\ffout.7z"""; Components: "plugin\export\ffout\jpxp"; Flags: runhidden
 ;QSVEnc
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\qsv.7z"""; Components: "plugin\export\qsv\en"
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}\Plugins"" ""{tmp}\qsv.7z"""; Components: "plugin\export\qsv\jp"
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\qsv.7z"""; Components: "plugin\export\qsv\en"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\Plugins"" ""{tmp}\qsv.7z"""; Components: "plugin\export\qsv\jp"; Flags: runhidden
 ;LQR
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\lqr.7z"""; Components: "plugin\edit\lqr\en"
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}"" ""{tmp}\lqr.7z"""; Components: "plugin\edit\lqr\en"; Flags: runhidden
 ;PSLevel
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\pslevel.7z"""; Components: "plugin\edit\pslevel\en"
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}"" ""{tmp}\pslevel.7z"""; Components: "plugin\edit\pslevel\en"; Flags: runhidden
 ;SigColor
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\sigcolor.7z"""; Components: "plugin\edit\sigcolor\en"
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}"" ""{tmp}\sigcolor.7z"""; Components: "plugin\edit\sigcolor\en"; Flags: runhidden
 ;IppRepair
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\ipprepair.7z"""; Components: "plugin\edit\ipprepair\en"
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}"" ""{tmp}\ipprepair.7z"""; Components: "plugin\edit\ipprepair\en"; Flags: runhidden
 ;MotionTracking MK-I
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\mtmk1.7z"""; Components: "plugin\misc\mtmk1"
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}"" ""{tmp}\mtmk1.7z"""; Components: "plugin\misc\mtmk1"; Flags: runhidden
 ;MotionTracking MK-II
-Filename: "{tmp}\7za.exe"; Parameters: "x -o""{app}"" ""{tmp}\mtmk2.7z"""; Components: "plugin\misc\mtmk2"
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}"" ""{tmp}\mtmk2.7z"""; Components: "plugin\misc\mtmk2"; Flags: runhidden
+;L-Smash
+Filename: "{tmp}\7za.exe"; Parameters: "x -y -o""{app}\3rdParty"" ""{tmp}\ls.7z"""; Components: "party\ls"; Flags: runhidden
+;FFmpeg
+Filename: "{tmp}\7za.exe"; Parameters: "e -y ""{tmp}\ffmpeg.7z"" -o""{app}\3rdParty"" *.exe -r"; Components: "party\ffmpeg"; Flags: runhidden
+;x264
+;(EXE only, use File section)
+;x265
+Filename: "{tmp}\7za.exe"; Parameters: "e -y ""{tmp}\x265_8bpp.zip"" -o""{app}\3rdParty"" *.exe -r"; Components: "party\x265"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "e -y ""{tmp}\x265_16bpp.zip"" -o""{app}\3rdParty"" *.exe -r"; Components: "party\x265"; Flags: runhidden
+;qaac
+Filename: "{tmp}\7za.exe"; Parameters: "x -y ""{tmp}\qaac.7z"" -o""{app}\3rdParty"""; Components: "party\qaac"; Flags: runhidden
+Filename: "{tmp}\7za.exe"; Parameters: "e -y ""{tmp}\iTune.exe"" -o""{tmp}\iTune"" *.msi -r"; Components: "party\qaac"; Flags: runhidden
+Filename: "msiexec"; Parameters: "/passive /i ""{tmp}\iTune\AppleApplicationSupport.msi"""; Components: "party\qaac"
+;NeroAAC
+;Filename: "{tmp}\7za.exe"; Parameters: "e -y ""{tmp}\neroaac.zip"" -o""{app}\3rdParty"" *.exe -r"; Components: "party\neroaac"; Flags: runhidden
 
+;MKV
+Filename: "{tmp}\7za.exe"; Parameters: "e -y ""{tmp}\mkv.7z"" -o""{app}\3rdParty"""; Components: "party\mkvmerge"; Flags: runhidden
+;
+;Finally move all TXT from root and Plugins to ./readme_srclist
+Filename: "{cmd}"; Parameters: "/C move /Y ""{app}\*.txt""  ""{app}\readme_srclist"""; Flags: runhidden waituntilterminated
+Filename: "{cmd}"; Parameters: "/C move /Y ""{app}\Plugins\*.txt""  ""{app}\readme_srclist"""; Flags: runhidden waituntilterminated
+Filename: "{cmd}"; Parameters: "/C move /Y ""{app}\Transition\*.txt""  ""{app}\readme_srclist"""; Flags: runhidden waituntilterminated
+Filename: "{cmd}"; Parameters: "/C move /Y ""{app}\3rdParty\*.txt""  ""{app}\readme_srclist"""; Flags: runhidden waituntilterminated
+[Tasks]
+Name: desktopicon; Description: "Create a &desktop icon"; GroupDescription:"Make ShortCuts:"; Components: base\LAA or base\ORI; Flags: unchecked
+Name: fourK; Description: Make AviUtl handles 4K video (default only handles up to FullHD); Components: base\LAA or base\ORI; Flags: unchecked
+[ICONS]
+Name: "{userdesktop}\AviUtl(EN)"; Filename: "{app}\aviutl.exe"; WorkingDir:"{app}"; Comment:"AviUtl in English"; IconFilename: "{app}\aviutl.exe"; Languages: en; Tasks: desktopicon; Components: lang\en_lucida or lang\en_gothic
+Name: "{group}\AviUtl(EN)"; Filename: "{app}\aviutl.exe"; WorkingDir:"{app}"; Comment:"AviUtl in English"; IconFilename: "{app}\aviutl.exe"; Languages: en; Tasks: desktopicon; Components: lang\en_lucida or lang\en_gothic
+Name: "{userdesktop}\AviUtl(日本語)"; Filename: "{app}\aviutl.exe"; WorkingDir:"{app}"; Comment:"AviUtl 日本語版"; IconFilename: "{app}\aviutl.exe"; Languages: jp; Tasks: desktopicon; Components: not (lang\en_lucida or lang\en_gothic)
+Name: "{group}\AviUtl(日本語)"; Filename: "{app}\aviutl.exe"; WorkingDir:"{app}"; Comment:"AviUtl 日本語版"; IconFilename: "{app}\aviutl.exe"; Languages: jp; Tasks: desktopicon; Components: not (lang\en_lucida or lang\en_gothic)
+Name: "{group}\Uninstall AviUtl"; Filename:"{uninstallexe}"
+[INI]
+Filename:"{app}\aviutl.ini"; Section:"system"; Key:"width"; String:"4096"; Tasks: fourK
+Filename:"{app}\aviutl.ini"; Section:"system"; Key:"height"; String:"2160"; Tasks: fourK
+Filename:"{app}\aviutl.ini"; Section:"system"; Key:"resource"; String:""; Components: not (lang\en_lucida or lang\en_gothic)
+
+[UninstallDelete]
+Type: files; Name: "{app}\Plugins\*"
+Type: files; Name: "{app}\3rdParty\*"
+Type: files; Name: "{app}\readme_srclist\*"
+Type: dirifempty; Name: "{app}\Plugins"
+Type: dirifempty; Name: "{app}\3rdParty"
+Type: dirifempty; Name: "{app}\readme_srclist"
+Type: files; Name: "{app}\*.aui"
+Type: files; Name: "{app}\*.auf"
 [Code]
 
 //importing an ANSI Windows API function
@@ -443,6 +586,9 @@ external 'hasAVX2@files:cputest.dll stdcall';
 
 function hasXOP(): Boolean;
 external 'hasXOP@files:cputest.dll stdcall';
+
+function hasPS30(): Boolean;
+external 'hasPixelShader3@files:haspShader3.dll stdcall';
 
 function SSE2: Boolean;
 begin
@@ -479,6 +625,14 @@ end;
 function XOP: Boolean;
 begin
   if hasXOP() then
+  Result := True
+  else
+  Result := False;
+end;
+
+function PS30: Boolean;
+begin
+  if hasPS30() then
   Result := True
   else
   Result := False;
@@ -557,10 +711,72 @@ begin
         // MotionTracking MK-II
         if IsComponentSelected('plugin\misc\mtmk2') then
             idpAddFile('https://www.dropbox.com/s/m49ih04z0giuwc8/mtmk2.7z?dl=1', ExpandConstant('{tmp}\mtmk2.7z'));
-
-
-
-
+        // 3rd Party
+        // L-Smash
+        if IsComponentSelected('party\ls') then
+            idpAddFile('https://www.dropbox.com/s/z45u2v5t8gj9ace/LSmash32.7z?dl=1', ExpandConstant('{tmp}\ls.7z'));
+        // Zeranoe FFmpeg
+        if IsComponentSelected('party\ffmpeg') then
+        begin
+        if (Not IsWin64) then
+            begin
+            idpAddFile('http://ffmpeg.zeranoe.com/builds/win32/static/ffmpeg-latest-win32-static.7z', ExpandConstant('{tmp}\ffmpeg.7z'));
+            end
+        else
+            begin
+            idpAddFile('http://ffmpeg.zeranoe.com/builds/win64/static/ffmpeg-latest-win64-static.7z', ExpandConstant('{tmp}\ffmpeg.7z'));
+            end;
+        end;
+        // x264
+        if IsComponentSelected('party\x264') then
+        begin
+        if (Not IsWin64) then
+            begin
+            idpAddFile('http://komisar.gin.by/old/2538/x264.2538kMod.x86.exe', ExpandConstant('{tmp}\x264_8bpp.exe'));
+            idpAddFile('http://komisar.gin.by/old/2538/x264.2538kMod.10bit.x86.exe', ExpandConstant('{tmp}\x264_10bpp.exe'));
+            end
+        else
+            begin
+            idpAddFile('http://komisar.gin.by/old/2538/x264.2538kMod.x86_64.exe', ExpandConstant('{tmp}\x264_8bpp.exe'));
+            idpAddFile('http://komisar.gin.by/old/2538/x264.2538kMod.10bit.x86_64.exe', ExpandConstant('{tmp}\x264_10bpp.exe'));
+            end;
+        end;
+        // x265
+        if IsComponentSelected('party\x265') then
+        begin
+        if (Not IsWin64) then
+            begin
+            idpAddFile('http://x265.ru/soft/x265/ICC/x265[icc]_1.5+200.zip', ExpandConstant('{tmp}\x265_8bpp.zip'));
+            idpAddFile('http://x265.ru/soft/x265/ICC/x265[icc]_1.5+129_16bpp.zip', ExpandConstant('{tmp}\x265_10bpp.zip'));
+            end
+        else
+            begin
+            idpAddFile('http://x265.ru/soft/x265/ICC/x265[icc]_1.5+200_64.zip', ExpandConstant('{tmp}\x265_8bpp.zip'));
+            idpAddFile('http://x265.ru/soft/x265/ICC/x265[icc]_1.5+200_64_16bpp.zip', ExpandConstant('{tmp}\x265_16bpp.zip'));
+            end;
+        end;
+        // qaac
+        if IsComponentSelected('party\qaac') then
+        begin
+            idpAddFile('https://www.dropbox.com/s/rdjebx0lqog0j6m/qaac.7z?dl=1', ExpandConstant('{tmp}\qaac.7z'));
+            idpAddFile('https://secure-appldnld.apple.com/itunes12/031-17457.20150218.FFCRg/iTunesSetup.exe', ExpandConstant('{tmp}\iTune.exe'));
+        end;
+        // NeroAAC (@videohelp)
+        //if IsComponentSelected('party\neroaac') then
+            //idpAddFile('http://www.videohelp.com/download/NeroAACCodec-1.5.1.zip', ExpandConstant('{tmp}\neroaac.zip'));
+        // mkvmerge
+        if IsComponentSelected('party\mkvmerge') then
+        begin
+        if (Not IsWin64) then
+            begin
+            idpAddFile('https://www.dropbox.com/s/rtcwqbk9160acfi/mkvmerge.7z?dl=1', ExpandConstant('{tmp}\mkv.7z'));
+            end
+        else
+            begin
+            idpAddFile('https://www.dropbox.com/s/cmfev5cppkhktyr/mkvmerge64.7z?dl=1', ExpandConstant('{tmp}\mkv.7z'));
+            end;
+        end;
+        //
   end;
 end;
 

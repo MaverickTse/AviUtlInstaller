@@ -91,26 +91,26 @@ Name: "plugin\import\shrink"; Description: AutoShrink Image Reader; Types: full 
 Name: "plugin\export"; Description: File Export Support
 ;x264GuiEx by rigaya
 Name: "plugin\export\x264gui"; Description: x264GuiEx (for AVC/H.264)
-Name: "plugin\export\x264gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 1075098
-Name: "plugin\export\x264gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 1069067
-Name: "plugin\export\x264gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 1074586
-Name: "plugin\export\x264gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 1074586
+Name: "plugin\export\x264gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 1075098; Check: dotNETOK
+Name: "plugin\export\x264gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 1069067; Check: dotNETOK
+Name: "plugin\export\x264gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 1074586; Check: dotNETOK
+Name: "plugin\export\x264gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 1074586; Check: dotNETOK
 ;x265GuiEx by rigaya
 Name: "plugin\export\x265gui"; Description: x265GuiEx (for HEVC/H.265)
-Name: "plugin\export\x265gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 1006296
-Name: "plugin\export\x265gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 1018979
-Name: "plugin\export\x265gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 1006343 
-Name: "plugin\export\x265gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 1006343
+Name: "plugin\export\x265gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 1006296; Check: dotNETOK
+Name: "plugin\export\x265gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 1018979; Check: dotNETOK
+Name: "plugin\export\x265gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 1006343; Check: dotNETOK
+Name: "plugin\export\x265gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 1006343; Check: dotNETOK
 ;ffmpegOut by rigaya
 Name: "plugin\export\ffout"; Description: ffmpegOut (encode via FFmpeg)
-Name: "plugin\export\ffout\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 755801
-Name: "plugin\export\ffout\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 721217
-Name: "plugin\export\ffout\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 752247 
-Name: "plugin\export\ffout\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 752247
+Name: "plugin\export\ffout\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 755801; Check: dotNETOK
+Name: "plugin\export\ffout\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 721217; Check: dotNETOK
+Name: "plugin\export\ffout\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 752247; Check: dotNETOK
+Name: "plugin\export\ffout\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 752247; Check: dotNETOK
 ;QSVENc by rigaya
 Name: "plugin\export\qsv"; Description: ffmpegOut (encode via FFmpeg)
-Name: "plugin\export\qsv\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; Check: AVX; ExtraDiskSpaceRequired: 612962
-Name: "plugin\export\qsv\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; Check: AVX; ExtraDiskSpaceRequired: 663346
+Name: "plugin\export\qsv\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 612962; Check: AVX and dotNETOK
+Name: "plugin\export\qsv\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 663346; Check: AVX and dotNETOK
 
 ;Direct GIF Export 2
 Name: "plugin\export\dge2"; Description: Direct GIF Export 2; MinVersion: 6.1; Types: full full32 fulljp full32jp; Check: SSSE3
@@ -636,6 +636,78 @@ begin
   Result := True
   else
   Result := False;
+end;
+
+
+//.NET Checking Code stolen from http://stackoverflow.com/questions/4104011/innosetup-verify-that-net-4-0-is-installed
+type
+  //
+  // Enumeration used to specify a .NET framework version 
+  //
+  TDotNetFramework = (
+    DotNet_v11_4322,  // .NET Framework 1.1
+    DotNet_v20_50727, // .NET Framework 2.0
+    DotNet_v30,       // .NET Framework 3.0
+    DotNet_v35,       // .NET Framework 3.5
+    DotNet_v4_Client, // .NET Framework 4.0 Client Profile
+    DotNet_v4_Full,   // .NET Framework 4.0 Full Installation
+    DotNet_v45);      // .NET Framework 4.5
+//
+//
+// Checks whether the specified .NET Framework version and service pack
+// is installed (See: http://www.kynosarges.de/DotNetVersion.html)
+//
+// Parameters:
+//   Version     - Required .NET Framework version
+//   ServicePack - Required service pack level (0: None, 1: SP1, 2: SP2 etc.)
+//
+function IsDotNetInstalled(Version: TDotNetFramework; ServicePack: cardinal): Boolean;
+  var
+    KeyName      : string;
+    Check45      : boolean;
+    Success      : boolean;
+    InstallFlag  : cardinal; 
+    ReleaseVer   : cardinal;
+    ServiceCount : cardinal;
+  begin
+    // Registry path for the requested .NET Version
+    KeyName := 'SOFTWARE\Microsoft\NET Framework Setup\NDP\';
+
+    case Version of
+      DotNet_v11_4322:  KeyName := KeyName + 'v1.1.4322';
+      DotNet_v20_50727: KeyName := KeyName + 'v2.0.50727';
+      DotNet_v30:       KeyName := KeyName + 'v3.0';
+      DotNet_v35:       KeyName := KeyName + 'v3.5';
+      DotNet_v4_Client: KeyName := KeyName + 'v4\Client';
+      DotNet_v4_Full:   KeyName := KeyName + 'v4\Full';
+      DotNet_v45:       KeyName := KeyName + 'v4\Full';
+    end;
+
+    // .NET 3.0 uses "InstallSuccess" key in subkey Setup
+    if (Version = DotNet_v30) then
+      Success := RegQueryDWordValue(HKLM, KeyName + '\Setup', 'InstallSuccess', InstallFlag) else
+      Success := RegQueryDWordValue(HKLM, KeyName, 'Install', InstallFlag);
+
+    // .NET 4.0/4.5 uses "Servicing" key instead of "SP"
+    if (Version = DotNet_v4_Client) or
+       (Version = DotNet_v4_Full) or
+       (Version = DotNet_v45) then
+      Success := Success and RegQueryDWordValue(HKLM, KeyName, 'Servicing', ServiceCount) else
+      Success := Success and RegQueryDWordValue(HKLM, KeyName, 'SP', ServiceCount);
+
+    // .NET 4.5 is distinguished from .NET 4.0 by the Release key
+    if (Version = DotNet_v45) then
+      begin
+        Success := Success and RegQueryDWordValue(HKLM, KeyName, 'Release', ReleaseVer);
+        Success := Success and (ReleaseVer >= 378389);
+      end;
+
+    Result := Success and (InstallFlag = 1) and (ServiceCount >= ServicePack);
+  end;
+//
+function dotNETOK():Boolean;
+begin
+  Result := IsDotNetInstalled(DotNet_v4_Client, 0) or IsDotNetInstalled(DotNet_v4_Full, 0) or IsDotNetInstalled(DotNet_v45, 0);
 end;
 
 procedure InitializeWizard;

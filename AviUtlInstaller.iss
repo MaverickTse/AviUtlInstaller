@@ -447,24 +447,24 @@ Source: "party\fawcl.exe"; DestDir: "{app}\3rdparty"; Components: party\fawcl
 ; Scripts
 ;================================
 ;Satsuki
-Source: "script\en\Satsuki\*"; DestDir:"{app}\Scripts\Satsuki"; Components: script\satsuki and nle\en
-Source: "script\jp\Satsuki\*"; DestDir:"{app}\Scripts\Satsuki"; Components: script\satsuki and nle\jp
-Source: "script\jp\Satsuki_ANM\*"; DestDir:"{app}\Scripts\Satsuki_ANM"; Components: script\satsuki and nle\jp
-Source: "script\jp\Satsuki_TA\*"; DestDir:"{app}\Scripts\Satsuki_TA"; Components: script\satsuki and nle\jp
+Source: "script\en\Satsuki\*"; DestDir:"{app}\Script\Satsuki"; Components: script\satsuki and nle\en
+Source: "script\jp\Satsuki\*"; DestDir:"{app}\Script\Satsuki"; Components: script\satsuki and nle\jp
+Source: "script\jp\Satsuki_ANM\*"; DestDir:"{app}\Script\Satsuki_ANM"; Components: script\satsuki and nle\jp
+Source: "script\jp\Satsuki_TA\*"; DestDir:"{app}\Script\Satsuki_TA"; Components: script\satsuki and nle\jp
 ;TIM
-Source: "script\en\TIM\*"; DestDir:"{app}\Scripts\TIM"; Components: script\tim and nle\en
-Source: "script\jp\TIM\*"; DestDir:"{app}\Scripts\TIM"; Components: script\tim and nle\jp
+Source: "script\en\TIM\*"; DestDir:"{app}\Script\TIM"; Components: script\tim and nle\en
+Source: "script\jp\TIM\*"; DestDir:"{app}\Script\TIM"; Components: script\tim and nle\jp
 ;Rikki
-Source: "script\en\Rikki\*"; DestDir:"{app}\Scripts\Rikki"; Components: script\rikki and nle\en
-Source: "script\jp\Rikki\*"; DestDir:"{app}\Scripts\Rikki"; Components: script\rikki and nle\jp
+Source: "script\en\Rikki\*"; DestDir:"{app}\Script\Rikki"; Components: script\rikki and nle\en
+Source: "script\jp\Rikki\*"; DestDir:"{app}\Script\Rikki"; Components: script\rikki and nle\jp
 ;Others
-Source: "script\en\Others\*"; DestDir:"{app}\Scripts\Others"; Components: script\others and nle\en
-Source: "script\jp\Others\*"; DestDir:"{app}\Scripts\Others"; Components: script\others and nle\jp
+Source: "script\en\Others\*"; DestDir:"{app}\Script\Others"; Components: script\others and nle\en
+Source: "script\jp\Others\*"; DestDir:"{app}\Script\Others"; Components: script\others and nle\jp
 ;SVG
 Source: "script\en\SVG\*.dll"; DestDir:"{app}"; Components: script\mt\svg and nle\en
-Source: "script\en\SVG\script\*"; DestDir:"{app}\Scripts\SVG"; Components: script\mt\svg and nle\en
+Source: "script\en\SVG\script\*"; DestDir:"{app}\Script\SVG"; Components: script\mt\svg and nle\en
 Source: "script\jp\SVG\*.dll"; DestDir:"{app}"; Components: script\mt\svg and nle\jp
-Source: "script\jp\SVG\script\*"; DestDir:"{app}\Scripts\SVG"; Components: script\mt\svg and nle\jp
+Source: "script\jp\SVG\script\*"; DestDir:"{app}\Script\SVG"; Components: script\mt\svg and nle\jp
 ;KiriKiri scene change
 Source: "kirikiri\en\*"; DestDir: "{app}\Transition"; Components: script\kirikiri and nle\en
 Source: "kirikiri\jp\*"; DestDir: "{app}\Transition"; Components: script\kirikiri and nle\jp

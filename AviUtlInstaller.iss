@@ -17,7 +17,7 @@ Name: "jp"; MessagesFile: "compiler:Languages\Japanese.isl"; InfoAfterFile: "pos
 [Setup]
 AppName=AviUtl Extra Pack
 AppVersion=1.11
-DefaultDirName={sd}\AviUtl
+DefaultDirName={sd}\AviUtlPack
 Compression=lzma/ultra
 MinVersion=5.1sp3
 ArchitecturesInstallIn64BitMode=x64
@@ -31,6 +31,7 @@ UninstallDisplayName=Uninstall AviUtl
 UninstallDisplayIcon={uninstallexe}
 AlwaysUsePersonalGroup=True
 AppendDefaultGroupName=False
+UsePreviousGroup=False
 
 [CustomMessages]
 en.StdInst64= Standard for Win7 64bit(English)
@@ -45,6 +46,11 @@ jp.FullInst32= 全ての物 for Win7 32/64bit(日本語)
 
 en.XPInst= Compatibility pack for WinXP/Vista(English)
 jp.XPInst= WinXP/Vista 対応(日本語)
+
+en.CCInst64= Content Composition 64bit(No VideoFilter)
+en.CCInst32= Content Composition 32bit(No VideoFilter)
+jp.CCInst64= 動画合成（ビディオフィルタなし） 64bit
+jp.CCInst32= 動画合成（ビディオフィルタなし） 32bit
 
 en.MinInst= Minimal(English)
 jp.MinInst= 基本(日本語)
@@ -63,57 +69,62 @@ Name: "fulljp"; Description: {cm:FullInst64}; MinVersion: 6.1; Check: IsWin64; L
 Name: "full32jp"; Description: {cm:FullInst32}; MinVersion: 6.1; Languages: jp
 Name: "xpjp"; Description: {cm:XPInst}; MinVersion: 5.1sp3; Languages: jp
 Name: "compactjp"; Description: {cm:MinInst}; MinVersion: 5.1; Languages: jp
+;CC
+Name: "ccjp"; Description: {cm:CCInst64}; MinVersion: 6.1; Check: IsWin64; Languages: jp
+Name: "cc32jp"; Description: {cm:CCInst32}; MinVersion: 5.1sp3; Languages: jp
+Name: "ccen"; Description: {cm:CCInst64}; MinVersion: 6.1; Check: IsWin64; Languages: en
+Name: "cc32en"; Description: {cm:CCInst32}; MinVersion: 5.1sp3; Languages: en
 ; Custom
 Name: "custom"; Description: {cm:CustInst}; Flags: iscustom
 
 [Components]
 ; AviUtl.exe :: Large Address Aware needs to be another binary
 Name: "base"; Description: AviUtl Main program
-Name: "base\LAA"; Flags: exclusive; Description: with LAA support on Win64; Check: IsWin64; Types: full fulljp
-Name: "base\ORI"; Flags: exclusive; Description: original for Win32; Types: full32 full32jp xp xpjp compact compactjp
+Name: "base\LAA"; Flags: exclusive; Description: with LAA support on Win64; Check: IsWin64; Types: full fulljp ccen ccjp
+Name: "base\ORI"; Flags: exclusive; Description: original for Win32; Types: full32 full32jp xp xpjp compact compactjp cc32en cc32jp
 ; Language files
 Name: "lang"; Description: Extra language files
-Name: "lang\en_lucida"; Description: English (Lucida Sans Unicode); Types: full full32 xp compact
-Name: "lang\en_gothic"; Description: English (Gothic); Types: full full32 xp compact
+Name: "lang\en_lucida"; Description: English (Lucida Sans Unicode); Types: full full32 xp compact ccen cc32en
+Name: "lang\en_gothic"; Description: English (Gothic); Types: full full32 xp compact ccen cc32en
 ; Advanced Editing (拡張編集)
 Name: "nle"; Description: NLE Editor
-Name: "nle\en"; Description: English UI; Flags: exclusive; Types: full full32 xp compact
-Name: "nle\jp"; Description: Japenese UI; Flags: exclusive; Types: fulljp full32jp xpjp compactjp
+Name: "nle\en"; Description: English UI; Flags: exclusive; Types: full full32 xp compact ccen cc32en
+Name: "nle\jp"; Description: Japenese UI; Flags: exclusive; Types: fulljp full32jp xpjp compactjp ccjp cc32jp
 ; Plugins  (all 32 bit)
 Name: "plugin"; Description: Optional Plugins
 ; Import plugins
 Name: "plugin\import"; Description: File Import Support
-Name: "plugin\import\dsinput"; Description: DirectShow Input; Types: full full32 xp compact fulljp full32jp xpjp compactjp
-Name: "plugin\import\lsw"; Description: L-SMASH Works; Types: full full32 xp fulljp full32jp xpjp; Check: SSSE3; ExtraDiskSpaceRequired: 13780577
-Name: "plugin\import\csri"; Description: ASS/SSA Subtitle; Types: full full32 fulljp full32jp; ExtraDiskSpaceRequired: 1740360 
-Name: "plugin\import\shrink"; Description: AutoShrink Image Reader; Types: full full32 fulljp full32jp; Check: SSSE3; ExtraDiskSpaceRequired: 3383808
+Name: "plugin\import\dsinput"; Description: DirectShow Input; Types: full full32 xp compact fulljp full32jp xpjp compactjp ccen cc32en ccjp cc32jp
+Name: "plugin\import\lsw"; Description: L-SMASH Works; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp; Check: SSSE3; ExtraDiskSpaceRequired: 13780577
+Name: "plugin\import\csri"; Description: ASS/SSA Subtitle; Types: full full32 fulljp full32jp ccen cc32en ccjp cc32jp; ExtraDiskSpaceRequired: 1740360 
+Name: "plugin\import\shrink"; Description: AutoShrink Image Reader; Types: full full32 fulljp full32jp ccen cc32en ccjp cc32jp; Check: SSSE3; ExtraDiskSpaceRequired: 3383808
 ; Export plugins
 Name: "plugin\export"; Description: File Export Support
 ;x264GuiEx by rigaya
 Name: "plugin\export\x264gui"; Description: x264GuiEx (for AVC/H.264)
-Name: "plugin\export\x264gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 1075098; Check: dotNETOK
-Name: "plugin\export\x264gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 1069067; Check: dotNETOK
-Name: "plugin\export\x264gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 1074586; Check: dotNETOK
-Name: "plugin\export\x264gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 1074586; Check: dotNETOK
+Name: "plugin\export\x264gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32 ccen; ExtraDiskSpaceRequired: 1075098; Check: dotNETOK
+Name: "plugin\export\x264gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp ccjp; ExtraDiskSpaceRequired: 1069067; Check: dotNETOK
+Name: "plugin\export\x264gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp cc32en; ExtraDiskSpaceRequired: 1074586; Check: dotNETOK
+Name: "plugin\export\x264gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp cc32jp; ExtraDiskSpaceRequired: 1074586; Check: dotNETOK
 ;x265GuiEx by rigaya
 Name: "plugin\export\x265gui"; Description: x265GuiEx (for HEVC/H.265)
-Name: "plugin\export\x265gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 1006296; Check: dotNETOK
-Name: "plugin\export\x265gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 1018979; Check: dotNETOK
-Name: "plugin\export\x265gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 1006343; Check: dotNETOK
-Name: "plugin\export\x265gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 1006343; Check: dotNETOK
+Name: "plugin\export\x265gui\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32 ccen; ExtraDiskSpaceRequired: 1006296; Check: dotNETOK
+Name: "plugin\export\x265gui\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp ccjp; ExtraDiskSpaceRequired: 1018979; Check: dotNETOK
+Name: "plugin\export\x265gui\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp cc32en; ExtraDiskSpaceRequired: 1006343; Check: dotNETOK
+Name: "plugin\export\x265gui\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp cc32jp; ExtraDiskSpaceRequired: 1006343; Check: dotNETOK
 ;ffmpegOut by rigaya
 Name: "plugin\export\ffout"; Description: ffmpegOut (encode via FFmpeg)
-Name: "plugin\export\ffout\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 755801; Check: dotNETOK
-Name: "plugin\export\ffout\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 721217; Check: dotNETOK
-Name: "plugin\export\ffout\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp; ExtraDiskSpaceRequired: 752247; Check: dotNETOK
-Name: "plugin\export\ffout\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp; ExtraDiskSpaceRequired: 752247; Check: dotNETOK
+Name: "plugin\export\ffout\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32 ccen; ExtraDiskSpaceRequired: 755801; Check: dotNETOK
+Name: "plugin\export\ffout\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp ccjp; ExtraDiskSpaceRequired: 721217; Check: dotNETOK
+Name: "plugin\export\ffout\enxp"; Description: English UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xp ccen; ExtraDiskSpaceRequired: 752247; Check: dotNETOK
+Name: "plugin\export\ffout\jpxp"; Description: Japanese UI(WinXP); Flags: exclusive; MinVersion: 5.1sp3; Types: xpjp ccjp; ExtraDiskSpaceRequired: 752247; Check: dotNETOK
 ;QSVENc by rigaya
-Name: "plugin\export\qsv"; Description: ffmpegOut (encode via FFmpeg)
-Name: "plugin\export\qsv\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32; ExtraDiskSpaceRequired: 612962; Check: AVX and dotNETOK
-Name: "plugin\export\qsv\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp; ExtraDiskSpaceRequired: 663346; Check: AVX and dotNETOK
+Name: "plugin\export\qsv"; Description: QuickSyncVideo Encoder (Intel CPU only)
+Name: "plugin\export\qsv\en"; Description: English UI; Flags: exclusive; MinVersion: 6.1; Types: full full32 ccen cc32en; ExtraDiskSpaceRequired: 612962; Check: AVX and dotNETOK
+Name: "plugin\export\qsv\jp"; Description: Japanese UI; Flags: exclusive; MinVersion: 6.1; Types: fulljp full32jp ccjp cc32jp; ExtraDiskSpaceRequired: 663346; Check: AVX and dotNETOK
 
 ;Direct GIF Export 2
-Name: "plugin\export\dge2"; Description: Direct GIF Export 2; MinVersion: 6.1; Types: full full32 fulljp full32jp; Check: SSSE3
+Name: "plugin\export\dge2"; Description: Direct GIF Export 2; MinVersion: 6.1; Types: full full32 fulljp full32jp ccen cc32en ccjp cc32jp; Check: SSSE3
 ;=====================================
 ; Filter Plugins
 ;=====================================
@@ -206,49 +217,57 @@ Name: "plugin\misc\field"; Description: Field Separation and Weaving
 Name: "plugin\misc\field\en"; Description: English UI; Types: full full32 xp
 Name: "plugin\misc\field\jp"; Description: Japanese UI; Types: fulljp full32jp xpjp
 ;Motion Tracking MK-I
-Name: "plugin\misc\mtmk1"; Description: Motion Tracking MK-I(OpenCV2); Types: full full32 fulljp full32jp; Check: SSSE3; ExtraDiskSpaceRequired: 6004297
+Name: "plugin\misc\mtmk1"; Description: Motion Tracking MK-I(OpenCV2); Types: full full32 fulljp full32jp ccen cc32en ccjp cc32jp; Check: SSSE3; ExtraDiskSpaceRequired: 6004297
 ;Motion Tracking MK-II
 Name: "plugin\misc\mtmk2"; Description: Motion Tracking MK-II(OpenCV3-AVX); Check: AVX; ExtraDiskSpaceRequired: 16998445
+
+
 
 ;=====================================
 ; Scripts
 ;=====================================
 ; Script language should be chosen upon on NLE's language automatically
 Name: "script"; Description: Effect Scripts and Custom Objects
-Name: "script\satsuki"; Description: Scripts by Satsuki; Types: full full32 xp fulljp full32jp xpjp
-Name: "script\tim"; Description: Scripts by Tim; Types: full full32 xp fulljp full32jp xpjp
-Name: "script\rikki"; Description: Scripts by Rikki; Types: full full32 xp fulljp full32jp xpjp
-Name: "script\mt"; Description: Scripts by MaverickTse; Types: full full32 xp fulljp full32jp xpjp
-Name: "script\mt\svg"; Description: SVG Custom Object; Types: full full32 xp fulljp full32jp xpjp
-Name: "script\others"; Description: Scripts by various authors; Types: full full32 xp fulljp full32jp xpjp
-Name: "script\kirikiri"; Description: "Transition patterns(kikyou.info)"; Types: full full32 xp fulljp full32jp xpjp
+Name: "script\satsuki"; Description: Scripts by Satsuki; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "script\tim"; Description: Scripts by Tim; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "script\rikki"; Description: Scripts by Rikki; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "script\mt"; Description: Scripts by MaverickTse; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "script\mt\svg"; Description: SVG Custom Object; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "script\others"; Description: Scripts by various authors; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "script\kirikiri"; Description: "Transition patterns(kikyou.info)"; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
 
 ;=====================================
 ; 3rd-Party Tools
 ;=====================================
 Name: "party"; Description: "Third-Party Tools"
-Name: "party\ls"; Description: L-SMASH (required by x26XGuiEx); Types: full full32 xp fulljp full32jp xpjp; ExtraDiskSpaceRequired: 2007040
-Name: "party\ffmpeg"; Description: FFmpeg (required by ffmpegOut); Types: full full32 xp fulljp full32jp xpjp; ExtraDiskSpaceRequired: 32685568
-Name: "party\x264"; Description: x264 AVC video encoder; Types: full full32 xp fulljp full32jp xpjp; ExtraDiskSpaceRequired: 10940416
-Name: "party\x265"; Description: x265 HEVC video encoder; Types: full full32 xp fulljp full32jp xpjp; ExtraDiskSpaceRequired: 3230720
-Name: "party\qaac"; Description: AAC Audio Encoder (requires iTune); Types: full full32 xp fulljp full32jp xpjp
+Name: "party\ls"; Description: L-SMASH (required by x26XGuiEx); Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp; ExtraDiskSpaceRequired: 2007040
+Name: "party\ffmpeg"; Description: FFmpeg (required by ffmpegOut); Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp; ExtraDiskSpaceRequired: 32685568
+Name: "party\x264"; Description: x264 AVC video encoder; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp; ExtraDiskSpaceRequired: 10940416
+Name: "party\x265"; Description: x265 HEVC video encoder; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp; ExtraDiskSpaceRequired: 3230720
+Name: "party\qaac"; Description: AAC Audio Encoder (requires iTune); Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
 ;Name: "party\neroaac"; Description: AAC Audio Encoder (Nero); Types: full full32 xp fulljp full32jp xpjp
-Name: "party\opus"; Description: Opus audio encoder; Types: full full32 xp fulljp full32jp xpjp
-Name: "party\ogg"; Description: Ogg audio encoder; Types: full full32 xp fulljp full32jp xpjp
-Name: "party\flac"; Description: FLAC audio encoder; Types: full full32 xp fulljp full32jp xpjp
-Name: "party\fawcl"; Description: FakeAACWave audio encoder; Types: full full32 xp fulljp full32jp xpjp
-Name: "party\mplex"; Description: MJPEG multiplexer; Types: full full32 xp fulljp full32jp xpjp
-Name: "party\mkvmerge"; Description: MKVMerge (required to export MKV); Types: full full32 xp fulljp full32jp xpjp; ExtraDiskSpaceRequired: 8744960
+Name: "party\opus"; Description: Opus audio encoder; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "party\ogg"; Description: Ogg audio encoder; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "party\flac"; Description: FLAC audio encoder; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "party\fawcl"; Description: FakeAACWave audio encoder; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "party\mplex"; Description: MJPEG multiplexer; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "party\mkvmerge"; Description: MKVMerge (required to export MKV); Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp; ExtraDiskSpaceRequired: 8744960
 
 ;=====================================
 ; Utilities
 ;=====================================
 Name: "util"; Description: Small Utilities
-Name: "util\exo2sub"; Description: Convert EXO to SRT/ASS subtitle; Types: full full32 xp fulljp full32jp xpjp
-Name: "util\exostacker"; Description: Merge several EXOs in a top-down manner; Types: full full32 xp fulljp full32jp xpjp
-Name: "util\slideshow"; Description: Create EXO with a series of images; Types: full full32 xp fulljp full32jp xpjp
-Name: "util\exofps"; Description: Change EXO framerate; Types: full full32 xp fulljp full32jp xpjp
-Name: "util\exofps\jp"; Description: Japanese UI; Types: full full32 xp fulljp full32jp xpjp
+Name: "util\exo2sub"; Description: Convert EXO to SRT/ASS subtitle; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "util\exostacker"; Description: Merge several EXOs in a top-down manner; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "util\slideshow"; Description: Create EXO with a series of images; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "util\exofps"; Description: Change EXO framerate; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "util\exofps\jp"; Description: Japanese UI; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+Name: "util\FFGif"; Description: AniGIF Conversion Helper VBScript; Types: full full32 xp fulljp full32jp xpjp ccen cc32en ccjp cc32jp
+
+;====================================
+; SDK
+;====================================
+Name: "sdk"; Description: AviUtl SDK for developer; Types: full fulljp full32 full32jp
 
 [Files]
 Source: "cputest.dll"; Flags: dontcopy
@@ -455,8 +474,11 @@ Source: "script\jp\Satsuki_TA\*"; DestDir:"{app}\Script\Satsuki_TA"; Components:
 Source: "script\en\TIM\*"; DestDir:"{app}\Script\TIM"; Components: script\tim and nle\en
 Source: "script\jp\TIM\*"; DestDir:"{app}\Script\TIM"; Components: script\tim and nle\jp
 ;Rikki
-Source: "script\en\Rikki\*"; DestDir:"{app}\Script\Rikki"; Components: script\rikki and nle\en
-Source: "script\jp\Rikki\*"; DestDir:"{app}\Script\Rikki"; Components: script\rikki and nle\jp
+Source: "script\en\Rikki\*"; DestDir:"{app}\Script\Rikki"; Components: script\rikki and nle\en; Flags: recursesubdirs
+Source: "script\jp\Rikki\*"; DestDir:"{app}\Script\Rikki"; Components: script\rikki and nle\jp; Flags: recursesubdirs
+;CustomFlare EXA
+Source: "CustomFlareEN\*"; DestDir:"{app}\CustomFlare"; Components: script\rikki and nle\en
+Source: "CustomFlareJP\*"; DestDir:"{app}\CustomFlare"; Components: script\rikki and nle\jp
 ;Others
 Source: "script\en\Others\*"; DestDir:"{app}\Script\Others"; Components: script\others and nle\en
 Source: "script\jp\Others\*"; DestDir:"{app}\Script\Others"; Components: script\others and nle\jp
@@ -468,6 +490,11 @@ Source: "script\jp\SVG\script\*"; DestDir:"{app}\Script\SVG"; Components: script
 ;KiriKiri scene change
 Source: "kirikiri\en\*"; DestDir: "{app}\Transition"; Components: script\kirikiri and nle\en
 Source: "kirikiri\jp\*"; DestDir: "{app}\Transition"; Components: script\kirikiri and nle\jp
+
+;================================
+; Figure
+;================================
+Source: "figure\*"; DestDir:"{app}\figure"
 
 ;================================
 ; Utils
@@ -482,6 +509,14 @@ Source: "util\EXOStacker.exe"; DestDir:"{app}\Utilities"; Components: util\exost
 Source: "util\SlideShowHelperEN.exe"; DestDir:"{app}\Utilities"; Components: util\slideshow
 ;FPS
 Source: "util\AviUtl_ExoExpander.exe"; DestDir:"{app}\Utilities"; Components: util\exofps\jp
+;FFGif
+Source: "util\ffgif.vbs"; DestDir:"{app}\3rdparty"; Components: util\FFGif
+
+;====================================
+; SDK
+;====================================
+Source: "SDK\*"; DestDir:"{app}\SDK"; Components: sdk; Flags: recursesubdirs
+
 [Run]
 ;L-Smash Works
 Filename: "{tmp}\7za.exe"; Parameters: "e -y -o""{app}\Plugins"" ""{tmp}\LSW.7z"""; Components: "plugin\import\lsw"; Flags: runhidden
@@ -545,27 +580,80 @@ Filename: "{cmd}"; Parameters: "/C move /Y ""{app}\Transition\*.txt""  ""{app}\r
 Filename: "{cmd}"; Parameters: "/C move /Y ""{app}\3rdParty\*.txt""  ""{app}\readme_srclist"""; Flags: runhidden waituntilterminated
 [Tasks]
 Name: desktopicon; Description: "Create a &desktop icon"; GroupDescription:"Make ShortCuts:"; Components: base\LAA or base\ORI; Flags: unchecked
+Name: startmenuicon; Description: "Add to &Start Menu"; GroupDescription:"Make ShortCuts:"; Components: base\LAA or base\ORI
 Name: fourK; Description: Make AviUtl handles 4K video (default only handles up to FullHD); Components: base\LAA or base\ORI; Flags: unchecked
 [ICONS]
 Name: "{userdesktop}\AviUtl(EN)"; Filename: "{app}\aviutl.exe"; WorkingDir:"{app}"; Comment:"AviUtl in English"; IconFilename: "{app}\aviutl.exe"; Languages: en; Tasks: desktopicon; Components: lang\en_lucida or lang\en_gothic
-Name: "{group}\AviUtl(EN)"; Filename: "{app}\aviutl.exe"; WorkingDir:"{app}"; Comment:"AviUtl in English"; IconFilename: "{app}\aviutl.exe"; Languages: en; Tasks: desktopicon; Components: lang\en_lucida or lang\en_gothic
+Name: "{group}\AviUtl(EN)"; Filename: "{app}\aviutl.exe"; WorkingDir:"{app}"; Comment:"AviUtl in English"; IconFilename: "{app}\aviutl.exe"; Languages: en; Tasks: startmenuicon; Components: lang\en_lucida or lang\en_gothic
 Name: "{userdesktop}\AviUtl(日本語)"; Filename: "{app}\aviutl.exe"; WorkingDir:"{app}"; Comment:"AviUtl 日本語版"; IconFilename: "{app}\aviutl.exe"; Languages: jp; Tasks: desktopicon; Components: not (lang\en_lucida or lang\en_gothic)
-Name: "{group}\AviUtl(日本語)"; Filename: "{app}\aviutl.exe"; WorkingDir:"{app}"; Comment:"AviUtl 日本語版"; IconFilename: "{app}\aviutl.exe"; Languages: jp; Tasks: desktopicon; Components: not (lang\en_lucida or lang\en_gothic)
-Name: "{group}\Uninstall AviUtl"; Filename:"{uninstallexe}"
+Name: "{group}\AviUtl(日本語)"; Filename: "{app}\aviutl.exe"; WorkingDir:"{app}"; Comment:"AviUtl 日本語版"; IconFilename: "{app}\aviutl.exe"; Languages: jp; Tasks: startmenuicon; Components: not (lang\en_lucida or lang\en_gothic)
+Name: "{group}\Uninstall AviUtl"; Filename:"{uninstallexe}"; Tasks: startmenuicon
 [INI]
+;4K support
 Filename:"{app}\aviutl.ini"; Section:"system"; Key:"width"; String:"4096"; Tasks: fourK
 Filename:"{app}\aviutl.ini"; Section:"system"; Key:"height"; String:"2160"; Tasks: fourK
+;unset language resource
 Filename:"{app}\aviutl.ini"; Section:"system"; Key:"resource"; String:""; Components: not (lang\en_lucida or lang\en_gothic)
+;ffmpegout
+Filename:"{app}\Plugins\ffmpegOut.conf"; Section:"FFMPEGOUT"; Key:"get_relative_path"; String:"1"; Components: plugin\export\ffout\en or plugin\export\ffout\jp or plugin\export\ffout\enxp or plugin\export\ffout\jpxp
+Filename:"{app}\Plugins\ffmpegOut.conf"; Section:"FFMPEGOUT"; Key:"ffmpeg_path"; String:".\3rdParty\ffmpeg.exe"; Components: plugin\export\ffout\en or plugin\export\ffout\jp or plugin\export\ffout\enxp or plugin\export\ffout\jpxp
+;x264guiEx
+Filename:"{app}\Plugins\x264guiEx.conf"; Section:"X264GUIEX"; Key:"get_relative_path"; String:"1"; Components: plugin\export\x264gui\en or plugin\export\x264gui\jp or plugin\export\x264gui\enxp or plugin\export\x264gui\jpxp
+Filename:"{app}\Plugins\x264guiEx.conf"; Section:"X264"; Key:"X264"; String:".\3rdParty\x264_8bpp.exe"; Components: plugin\export\x264gui\en or plugin\export\x264gui\jp or plugin\export\x264gui\enxp or plugin\export\x264gui\jpxp
+Filename:"{app}\Plugins\x264guiEx.conf"; Section:"X264"; Key:"X264_10bit"; String:".\3rdParty\x264_10bpp.exe"; Components: plugin\export\x264gui\en or plugin\export\x264gui\jp or plugin\export\x264gui\enxp or plugin\export\x264gui\jpxp
+Filename:"{app}\Plugins\x264guiEx.conf"; Section:"AUDIO"; Key:"AAC_QAAC"; String:".\3rdParty\qaac.exe"; Components: plugin\export\x264gui\en or plugin\export\x264gui\jp or plugin\export\x264gui\enxp or plugin\export\x264gui\jpxp
+Filename:"{app}\Plugins\x264guiEx.conf"; Section:"AUDIO"; Key:"OGG_OPUS"; String:".\3rdParty\opusenc.exe"; Components: plugin\export\x264gui\en or plugin\export\x264gui\jp or plugin\export\x264gui\enxp or plugin\export\x264gui\jpxp
+Filename:"{app}\Plugins\x264guiEx.conf"; Section:"MUXER"; Key:"MUXER_MP4"; String:".\3rdParty\remuxer.exe"; Components: plugin\export\x264gui\en or plugin\export\x264gui\jp or plugin\export\x264gui\enxp or plugin\export\x264gui\jpxp
+Filename:"{app}\Plugins\x264guiEx.conf"; Section:"MUXER"; Key:"MUXER_MKV"; String:".\3rdParty\mkvmerge.exe"; Components: plugin\export\x264gui\en or plugin\export\x264gui\jp or plugin\export\x264gui\enxp or plugin\export\x264gui\jpxp
+Filename:"{app}\Plugins\x264guiEx.conf"; Section:"MUXER"; Key:"MUXER_TC2MP4"; String:".\3rdParty\timelineeditor.exe"; Components: plugin\export\x264gui\en or plugin\export\x264gui\jp or plugin\export\x264gui\enxp or plugin\export\x264gui\jpxp
+Filename:"{app}\Plugins\x264guiEx.conf"; Section:"MUXER"; Key:"MUXER_MPG"; String:".\3rdParty\mplex.exe"; Components: plugin\export\x264gui\en or plugin\export\x264gui\jp or plugin\export\x264gui\enxp or plugin\export\x264gui\jpxp
+Filename:"{app}\Plugins\x264guiEx.conf"; Section:"MUXER"; Key:"MUXER_MP4_RAW"; String:".\3rdParty\muxer.exe"; Components: plugin\export\x264gui\en or plugin\export\x264gui\jp or plugin\export\x264gui\enxp or plugin\export\x264gui\jpxp
+
+;x265guiEx
+Filename:"{app}\Plugins\x265guiEx.conf"; Section:"X265GUIEX"; Key:"get_relative_path"; String:"1"; Components: plugin\export\x265gui\en or plugin\export\x265gui\jp or plugin\export\x265gui\enxp or plugin\export\x265gui\jpxp
+Filename:"{app}\Plugins\x265guiEx.conf"; Section:"X265"; Key:"X265"; String:".\3rdParty\x265.exe"; Components: plugin\export\x265gui\en or plugin\export\x265gui\jp or plugin\export\x265gui\enxp or plugin\export\x265gui\jpxp
+Filename:"{app}\Plugins\x265guiEx.conf"; Section:"X265"; Key:"X265_10bit"; String:".\3rdParty\x265-16.exe"; Components: plugin\export\x265gui\en or plugin\export\x265gui\jp or plugin\export\x265gui\enxp or plugin\export\x265gui\jpxp
+Filename:"{app}\Plugins\x265guiEx.conf"; Section:"AUDIO"; Key:"AAC_QAAC"; String:".\3rdParty\qaac.exe"; Components: plugin\export\x265gui\en or plugin\export\x265gui\jp or plugin\export\x265gui\enxp or plugin\export\x265gui\jpxp
+Filename:"{app}\Plugins\x265guiEx.conf"; Section:"AUDIO"; Key:"OGG_OPUS"; String:".\3rdParty\opusenc.exe"; Components: plugin\export\x265gui\en or plugin\export\x265gui\jp or plugin\export\x265gui\enxp or plugin\export\x265gui\jpxp
+Filename:"{app}\Plugins\x265guiEx.conf"; Section:"MUXER"; Key:"MUXER_MP4"; String:".\3rdParty\remuxer.exe"; Components: plugin\export\x265gui\en or plugin\export\x265gui\jp or plugin\export\x265gui\enxp or plugin\export\x265gui\jpxp
+Filename:"{app}\Plugins\x265guiEx.conf"; Section:"MUXER"; Key:"MUXER_MKV"; String:".\3rdParty\mkvmerge.exe"; Components: plugin\export\x265gui\en or plugin\export\x265gui\jp or plugin\export\x265gui\enxp or plugin\export\x265gui\jpxp
+Filename:"{app}\Plugins\x265guiEx.conf"; Section:"MUXER"; Key:"MUXER_TC2MP4"; String:".\3rdParty\timelineeditor.exe"; Components: plugin\export\x265gui\en or plugin\export\x265gui\jp or plugin\export\x265gui\enxp or plugin\export\x265gui\jpxp
+Filename:"{app}\Plugins\x265guiEx.conf"; Section:"MUXER"; Key:"MUXER_MPG"; String:".\3rdParty\mplex.exe"; Components: plugin\export\x265gui\en or plugin\export\x265gui\jp or plugin\export\x265gui\enxp or plugin\export\x265gui\jpxp
+Filename:"{app}\Plugins\x265guiEx.conf"; Section:"MUXER"; Key:"MUXER_MP4_RAW"; String:".\3rdParty\muxer.exe"; Components: plugin\export\x265gui\en or plugin\export\x265gui\jp or plugin\export\x265gui\enxp or plugin\export\x265gui\jpxp
+
+;QSVEnc
+Filename:"{app}\Plugins\QSVEnc.conf"; Section:"QSVENC"; Key:"get_relative_path"; String:"1"; Components: plugin\export\qsv\en or plugin\export\qsv\jp
+Filename:"{app}\Plugins\QSVEnc.conf"; Section:"AUDIO"; Key:"AAC_QAAC"; String:".\3rdParty\qaac.exe"; Components: plugin\export\qsv\en or plugin\export\qsv\jp
+Filename:"{app}\Plugins\QSVEnc.conf"; Section:"AUDIO"; Key:"OGG_OPUS"; String:".\3rdParty\opusenc.exe"; Components: plugin\export\qsv\en or plugin\export\qsv\jp
+Filename:"{app}\Plugins\QSVEnc.conf"; Section:"MUXER"; Key:"MUXER_MP4"; String:".\3rdParty\remuxer.exe"; Components: plugin\export\qsv\en or plugin\export\qsv\jp
+Filename:"{app}\Plugins\QSVEnc.conf"; Section:"MUXER"; Key:"MUXER_MKV"; String:".\3rdParty\mkvmerge.exe"; Components: plugin\export\qsv\en or plugin\export\qsv\jp
+Filename:"{app}\Plugins\QSVEnc.conf"; Section:"MUXER"; Key:"MUXER_TC2MP4"; String:".\3rdParty\timelineeditor.exe"; Components: plugin\export\qsv\en or plugin\export\qsv\jp
+Filename:"{app}\Plugins\QSVEnc.conf"; Section:"MUXER"; Key:"MUXER_MPG"; String:".\3rdParty\mplex.exe"; Components: plugin\export\qsv\en or plugin\export\qsv\jp
+Filename:"{app}\Plugins\QSVEnc.conf"; Section:"MUXER"; Key:"MUXER_MP4_RAW"; String:".\3rdParty\muxer.exe"; Components: plugin\export\qsv\en or plugin\export\qsv\jp
 
 [UninstallDelete]
-Type: files; Name: "{app}\Plugins\*"
+Type: filesandordirs; Name: "{app}\Plugins\*"
+Type: filesandordirs; Name: "{app}\Script\*"
 Type: files; Name: "{app}\3rdParty\*"
-Type: files; Name: "{app}\readme_srclist\*"
+Type: files; Name: "{app}\backup\*"
+Type: filesandordirs; Name: "{app}\readme_srclist\*"
 Type: dirifempty; Name: "{app}\Plugins"
 Type: dirifempty; Name: "{app}\3rdParty"
 Type: dirifempty; Name: "{app}\readme_srclist"
+Type: dirifempty; Name: "{app}\Script"
+Type: dirifempty; Name: "{app}\AutoShrink"
+Type: dirifempty; Name: "{app}\CSRI"
 Type: files; Name: "{app}\*.aui"
 Type: files; Name: "{app}\*.auf"
+Type: files; Name: "{app}\opencv*.dll"
+Type: files; Name: "{app}\liblqr-w32.dll"
+Type: files; Name: "{app}\FreeImage.dll"
+Type: files; Name: "{app}\VSFilter.dll"
+Type: files; Name: "{app}\cilkrts20.dll"
+Type: files; Name: "{app}\csri_reader.ini"
+Type: files; Name: "{app}\Default.cfg"
+Type: files; Name: "{app}\Default.sav"
+Type: files; Name: "{app}\aviutl.sav"
 [Code]
 
 //importing an ANSI Windows API function
